@@ -1,4 +1,4 @@
-namespace SpeeRunningHub.Models;
+namespace SpeedRunningHub.Models;
 
 public class ErrorViewModel
 {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KmX2/yLQCE2jKOLPuEOm5Df6Yhgk6c7MHlyHZi/Ifow2JvucIEtpxEyRHorhQpC1TjspPi8jWLCvpqhYXymIaQ==",
+  "dgSpecHash": "+1lGZ3d5cUdgMTtQRayMJjiC2ep+C+e0tS76jwLczgDC0JRnHgRwl8Vqj9mUknofSk26sSvikvj/ceW/xNf84Q==",
   "success": true,
-  "projectFilePath": "/Users/abeillemaia/Developer/speedrunningHub/SpeeRunningHub/SpeeRunningHub.csproj",
+  "projectFilePath": "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/SpeedRunningHub.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

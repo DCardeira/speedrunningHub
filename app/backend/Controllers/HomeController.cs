@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using SpeeRunningHub.Models;
+using SpeedRunningHub.Models;
 
-namespace SpeeRunningHub.Controllers;
+namespace SpeedRunningHub.Controllers;
 
 public class HomeController : Controller
 {

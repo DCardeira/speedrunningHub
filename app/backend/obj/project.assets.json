@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/abeillemaia/Developer/speedrunningHub/SpeeRunningHub/SpeeRunningHub.csproj",
-      "projectName": "SpeeRunningHub",
-      "projectPath": "/Users/abeillemaia/Developer/speedrunningHub/SpeeRunningHub/SpeeRunningHub.csproj",
+      "projectUniqueName": "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/SpeedRunningHub.csproj",
+      "projectName": "SpeedRunningHub",
+      "projectPath": "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/SpeedRunningHub.csproj",
       "packagesPath": "/Users/abeillemaia/.nuget/packages/",
-      "outputPath": "/Users/abeillemaia/Developer/speedrunningHub/SpeeRunningHub/obj/",
+      "outputPath": "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/abeillemaia/.nuget/NuGet/NuGet.Config"
