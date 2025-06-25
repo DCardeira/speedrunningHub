@@ -1,3 +1,6 @@
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpeedRunningHub.Data;
@@ -8,8 +11,11 @@ namespace SpeedRunningHub.Controllers{
     [ApiController]
     public class GamesController : ControllerBase{
         private readonly AppDbContext _context;
-        public GamesController(AppDbContext context){
-            _context = context;
+        private readonly BlobServiceClient _blobService;
+
+        public GamesController(AppDbContext context, BlobServiceClient blobService){
+            _context      = context;
+            _blobService  = blobService;
         }
 
         // GET: api/Games
@@ -36,13 +42,50 @@ namespace SpeedRunningHub.Controllers{
         }
 
         // POST: api/Games
-        // TODO: Proteger este endpoint para função de moderador
+        // TODO: Aplicar [Authorize(Roles="Moderator")] quando autenticação estiver pronta
         [HttpPost]
         public async Task<ActionResult<Game>> PostGame(Game game){
             _context.Games.Add(game);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetGame), new { id = game.GameId }, game);
+        }
+
+        // POST: api/Games/5/images
+        // Moderador envia imagem para este jogo
+        [HttpPost("{gameId}/images")]
+        [Authorize(Roles = "Moderator")]
+        public async Task<IActionResult> UploadGameImage(
+            int gameId,
+            IFormFile file){
+            if (file == null || file.Length == 0)
+                return BadRequest("Nenhum ficheiro recebido.");
+
+            // Obter ou criar container
+            var container = _blobService.GetBlobContainerClient("game-images");
+            await container.CreateIfNotExistsAsync(PublicAccessType.Blob);
+
+            // Nome único para o blob
+            var blobName = $"{gameId}/{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            var blobClient = container.GetBlobClient(blobName);
+
+            // Carregar ficheiro
+            await blobClient.UploadAsync(file.OpenReadStream(), new BlobHttpHeaders{
+                ContentType = file.ContentType
+            });
+
+            // Guardar registo no BD
+            var record = new GameImage{
+                GameId            = gameId,
+                FileName          = blobName,
+                FilePath          = blobClient.Uri.ToString(),
+                UploadedAt        = DateTime.UtcNow,
+                UploadedByUserId  = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            };
+            _context.GameImages.Add(record);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { record.GameImageId, record.FilePath });
         }
     }
 }
