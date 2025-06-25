@@ -3,11 +3,12 @@ using SpeedRunningHub.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicionar serviços ao container
+// Adicionar serviços
 builder.Services.AddControllers();
 // Configurar EF Core com o MySQL
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
         new MySqlServerVersion(new Version(8, 0, 27))));
 
 // Autentificação e configuração da Identidade (tbd)
