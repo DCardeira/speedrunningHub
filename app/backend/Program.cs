@@ -11,8 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // --- 1. Configurar Azure Key Vault como fonte de configuração ---
 var kvUrl = builder.Configuration["KeyVault:Url"];
-if (!string.IsNullOrEmpty(kvUrl))
-{
+if (!string.IsNullOrEmpty(kvUrl)) {
     builder.Configuration.AddAzureKeyVault(
         new Uri(kvUrl),
         new DefaultAzureCredential()
@@ -36,15 +35,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddSingleton(_ => new BlobServiceClient(blobConn));
 
 // --- 5. Configurar autenticação JWT ---
-builder.Services.AddAuthentication(options =>
-{
+builder.Services.AddAuthentication(options => {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme    = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
+.AddJwtBearer(options => {
+    options.TokenValidationParameters = new TokenValidationParameters {
         ValidateIssuer           = true,
         ValidateAudience         = true,
         ValidateLifetime         = true,
@@ -57,9 +53,14 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
-builder.Services.AddScoped<DbInitializer>();
 
 var app = builder.Build();
+
+// --- 6. Inicializar BD e inserir mock data ---
+using (var scope = app.Services.CreateScope()) {
+    var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
+    await initializer.SeedAsync();
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

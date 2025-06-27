@@ -10,7 +10,7 @@ using System.Security.Claims;
 namespace SpeedRunningHub.Controllers {
     [Route("api/[controller]")]
     [ApiController]
-    public class GamesController : ControllerBase{
+    public class GamesController : ControllerBase {
         private readonly AppDbContext _context;
         private readonly BlobServiceClient _blobService;
 
@@ -48,7 +48,6 @@ namespace SpeedRunningHub.Controllers {
         public async Task<ActionResult<Game>> PostGame(Game game) {
             _context.Games.Add(game);
             await _context.SaveChangesAsync();
-            
             return CreatedAtAction(nameof(GetGame), new { id = game.GameId }, game);
         }
 
