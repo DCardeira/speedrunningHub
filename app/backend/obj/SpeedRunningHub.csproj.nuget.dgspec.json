@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/SpeedRunningHub.csproj": {}
+    "/Users/abeillemaia/Developer/speedrunningHub/app/backend/SpeedRunningHub.csproj": {}
   },
   "projects": {
-    "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/SpeedRunningHub.csproj": {
+    "/Users/abeillemaia/Developer/speedrunningHub/app/backend/SpeedRunningHub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/SpeedRunningHub.csproj",
+        "projectUniqueName": "/Users/abeillemaia/Developer/speedrunningHub/app/backend/SpeedRunningHub.csproj",
         "projectName": "SpeedRunningHub",
-        "projectPath": "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/SpeedRunningHub.csproj",
+        "projectPath": "/Users/abeillemaia/Developer/speedrunningHub/app/backend/SpeedRunningHub.csproj",
         "packagesPath": "/Users/abeillemaia/.nuget/packages/",
-        "outputPath": "/Users/abeillemaia/Developer/speedrunningHub/app/SpeedRunningHub/obj/",
+        "outputPath": "/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/abeillemaia/.nuget/NuGet/NuGet.Config"
@@ -37,6 +37,20 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.14.1, )"
+            },
+            "Azure.Security.KeyVault.Secrets": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.24.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -1,0 +1,8 @@
+/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/Debug/net6.0/SpeedRunningHub.csproj.AssemblyReference.cache
+/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/Debug/net6.0/SpeedRunningHub.GeneratedMSBuildEditorConfig.editorconfig
+/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/Debug/net6.0/SpeedRunningHub.AssemblyInfoInputs.cache
+/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/Debug/net6.0/SpeedRunningHub.AssemblyInfo.cs
+/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/Debug/net6.0/SpeedRunningHub.csproj.CoreCompileInputs.cache
+/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/Debug/net6.0/SpeedRunningHub.MvcApplicationPartsAssemblyInfo.cache
+/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/Debug/net6.0/SpeedRunningHub.RazorAssemblyInfo.cache
+/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/Debug/net6.0/SpeedRunningHub.RazorAssemblyInfo.cs
