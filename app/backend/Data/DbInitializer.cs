@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SpeedRunningHub.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace SpeedRunningHub.Data {
     public class DbInitializer {
@@ -10,8 +11,9 @@ namespace SpeedRunningHub.Data {
         }
 
         public async Task SeedAsync() {
-            // Garante existência da BD
-            await _context.Database.MigrateAsync();
+            if (_context.Database.IsRelational()) {
+                await _context.Database.MigrateAsync();
+            }
 
             // Popula os Roles
             if (!await _context.Roles.AnyAsync()) {

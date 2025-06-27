@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // --- 1. Configurar Azure Key Vault como fonte de configuração ---
 var kvUrl = builder.Configuration["KeyVault:Url"];
-if (!string.IsNullOrEmpty(kvUrl)) {
+if (!builder.Environment.IsDevelopment() && !string.IsNullOrEmpty(kvUrl)) {
     builder.Configuration.AddAzureKeyVault(
         new Uri(kvUrl),
         new DefaultAzureCredential()
@@ -23,13 +23,24 @@ var connString = builder.Configuration["DefaultConnection"];
 var jwtSecret   = builder.Configuration["JwtSettings:SecretKey"];
 var blobConn    = builder.Configuration["BlobStorage:ConnectionString"];
 
+// read flags + connection‐string
+var useInMemory = builder.Configuration.GetValue<bool>("UseInMemory");
+var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
+
 // --- 3. Configurar EF Core com MySQL ---
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(
-        connString,
-        new MySqlServerVersion(new Version(8, 0, 27))
-    )
-);
+builder.Services.AddDbContext<AppDbContext>(options => {
+    if (useInMemory) {
+        options.UseInMemoryDatabase("SpeedrunDb");
+    }
+    else {
+        if (string.IsNullOrEmpty(defaultConn))
+            throw new ArgumentNullException("DefaultConnection", "Please set DefaultConnection in your configuration.");
+        options.UseMySql(
+            defaultConn,
+            new MySqlServerVersion(new Version(8, 0, 27))
+        );
+    }
+});
 
 // --- 4. Configurar cliente Blob Storage ---
 builder.Services.AddSingleton(_ => new BlobServiceClient(blobConn));
@@ -53,6 +64,7 @@ builder.Services.AddAuthentication(options => {
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
+builder.Services.AddScoped<DbInitializer>();
 
 var app = builder.Build();
 

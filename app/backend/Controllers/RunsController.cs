@@ -5,8 +5,8 @@ using SpeedRunningHub.Data;
 using SpeedRunningHub.Models;
 
 namespace SpeedRunningHub.Controllers {
-    [Route("api/games/{gameId}/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class RunsController : ControllerBase {
         private readonly AppDbContext _context;
 
@@ -14,25 +14,41 @@ namespace SpeedRunningHub.Controllers {
             _context = context;
         }
 
-        // GET: api/games/5/runs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SpeedrunRecord>>> GetRuns(int gameId) {
-            return await _context.SpeedrunRecords
-                .Where(r => r.GameId == gameId && r.IsApproved)
-                .OrderBy(r => r.Time)
-                .ToListAsync();
+        public async Task<IEnumerable<SpeedrunRecord>> GetRuns() {
+            return await _context.SpeedrunRecords.ToListAsync();
         }
 
-        // POST: api/games/5/runs
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<SpeedrunRecord>> GetRun(int id) {
+            var run = await _context.SpeedrunRecords.FirstOrDefaultAsync(r => r.RunId == id);
+            if (run is null) return NotFound();
+            return run;
+        }
+
         [HttpPost]
         [Authorize(Roles = "Runner")]
-        public async Task<ActionResult<SpeedrunRecord>> PostRun(int gameId, SpeedrunRecord record) {
-            record.GameId      = gameId;
-            record.DateSubmitted= DateTime.UtcNow;
-            record.IsApproved  = false;
-            _context.SpeedrunRecords.Add(record);
+        public async Task<ActionResult<SpeedrunRecord>> CreateRun(SpeedrunRecord run) {
+            _context.SpeedrunRecords.Add(run);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetRuns), new { gameId = gameId }, record);
+            return CreatedAtAction(nameof(GetRun), new { id = run.RunId }, run);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateRun(int id, SpeedrunRecord run) {
+            if (id != run.RunId) return BadRequest();
+            _context.Entry(run).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteRun(int id) {
+            var run = await _context.SpeedrunRecords.FindAsync(id);
+            if (run is null) return NotFound();
+            _context.SpeedrunRecords.Remove(run);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }
