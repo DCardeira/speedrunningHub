@@ -63,7 +63,7 @@ builder.Services.AddAuthentication(options => {
 });
 
 builder.Services.AddAuthorization();
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DbInitializer>();
 
 var app = builder.Build();
@@ -80,6 +80,5 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapControllers();
+app.MapDefaultControllerRoute();
 app.Run();
