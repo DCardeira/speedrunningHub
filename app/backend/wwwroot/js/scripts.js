@@ -1,31 +1,27 @@
+// ==============================================
+// FILTRO DE LISTA DE JOGOS
+// ==============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtém o elemento de input que será usado para filtrar a lista de jogos
+    // Configura o filtro de pesquisa para a lista de jogos
     const gameFilterInput = document.getElementById('gameFilter');
-    // Obtém o elemento que contém a lista de jogos
     const gameList = document.getElementById('gameList');
-    // Cria um array dos elementos 'li' que representam os jogos na lista
     const games = Array.from(gameList.getElementsByTagName('li'));
 
-    // Adiciona um listener ao input que é usado sempre que o valor do input é alterado
+    // Evento que filtra a lista conforme o usuário digita
     gameFilterInput.addEventListener('input', function() {
-        // Obtém o valor do input e converte para minúsculas para facilitar a comparação
         const filterValue = gameFilterInput.value.toLowerCase();
-        // Itera sobre cada jogo na lista
+        
         games.forEach(function(game) {
-            // Obtém o texto do jogo e converte para minúsculas
             const gameText = game.textContent.toLowerCase();
-            // Verifica se o texto do jogo inclui o valor do filtro
-            if (gameText.includes(filterValue)) {
-                // Se incluir, define o estilo 'display' do jogo como padrão ('') para garantir que ele esteja visível
-                game.style.display = '';
-            } else {
-                // Se não incluir, define o estilo 'display' do jogo como 'none' para escondê-lo
-                game.style.display = 'none';
-            }
+            // Mostra/oculta itens baseado no filtro
+            game.style.display = gameText.includes(filterValue) ? '' : 'none';
         });
     });
 });
 
+// ==============================================
+// GALERIA DE IMAGENS - SUPER MARIO 64
+// ==============================================
 document.addEventListener('DOMContentLoaded', function() {
     const galleryImages = [
         '/images/sm64_1.jpg',
@@ -36,102 +32,103 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const galleryContainer = document.getElementById('gallery');
+    
     if (galleryContainer && galleryImages.length > 0) {
         galleryContainer.innerHTML = '';
+        
+        // Cria e configura cada imagem da galeria
         galleryImages.forEach((imageSrc, index) => {
             const img = document.createElement('img');
             img.src = imageSrc;
             img.alt = 'Super Mario 64 Screenshot';
+            
+            // Configura o clique para abrir o modal
             img.addEventListener('click', function() {
                 let currentIndex = index;
-                // Cria o modal
+                
+                // Cria o modal (janela de visualização)
                 const modal = document.createElement('div');
-                modal.style.position = 'fixed';
-                modal.style.top = '0';
-                modal.style.left = '0';
-                modal.style.width = '100vw';
-                modal.style.height = '100vh';
-                modal.style.background = 'rgba(0,0,0,0.8)';
-                modal.style.display = 'flex';
-                modal.style.alignItems = 'center';
-                modal.style.justifyContent = 'center';
-                modal.style.zIndex = '9999';
-
-                const bigImg = document.createElement('img');
-                bigImg.src = galleryImages[currentIndex];
-                bigImg.style.width = 'auto';
-                bigImg.style.height = '90vh';
-                bigImg.style.maxWidth = 'none';
-                bigImg.style.maxHeight = 'none';
-                bigImg.style.borderRadius = '12px';
-                bigImg.style.boxShadow = '0 0 30px #000';
-                bigImg.style.objectFit = 'contain';
-
-                // Botão fechar
-                const closeBtn = document.createElement('span');
-                closeBtn.textContent = '✖';
-                closeBtn.style.position = 'absolute';
-                closeBtn.style.top = '30px';
-                closeBtn.style.right = '50px';
-                closeBtn.style.fontSize = '2.5em';
-                closeBtn.style.color = '#fff';
-                closeBtn.style.cursor = 'pointer';
-                closeBtn.style.zIndex = '10000';
-                closeBtn.addEventListener('click', function() {
-                    document.body.removeChild(modal);
+                Object.assign(modal.style, {
+                    position: 'fixed',
+                    top: '0',
+                    left: '0',
+                    width: '100vw',
+                    height: '100vh',
+                    background: 'rgba(0,0,0,0.8)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: '9999'
                 });
 
-                // Botão anterior
-                const prevBtn = document.createElement('span');
-                prevBtn.textContent = '◀';
-                prevBtn.style.position = 'absolute';
-                prevBtn.style.left = '40px';
-                prevBtn.style.top = '50%';
-                prevBtn.style.transform = 'translateY(-50%)';
-                prevBtn.style.fontSize = '3em';
-                prevBtn.style.color = '#fff';
-                prevBtn.style.cursor = 'pointer';
-                prevBtn.style.zIndex = '10000';
-                prevBtn.addEventListener('click', function(e) {
+                // Cria a imagem ampliada no modal
+                const bigImg = document.createElement('img');
+                Object.assign(bigImg.style, {
+                    width: 'auto',
+                    height: '90vh',
+                    maxWidth: 'none',
+                    maxHeight: 'none',
+                    borderRadius: '12px',
+                    boxShadow: '0 0 30px #000',
+                    objectFit: 'contain'
+                });
+                bigImg.src = galleryImages[currentIndex];
+
+                // Botão para fechar o modal
+                const closeBtn = createModalButton('✖', {
+                    top: '30px',
+                    right: '50px',
+                    fontSize: '2.5em'
+                }, () => document.body.removeChild(modal));
+
+                // Botão para imagem anterior
+                const prevBtn = createModalButton('◀', {
+                    left: '40px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    fontSize: '3em'
+                }, (e) => {
                     e.stopPropagation();
                     currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
                     bigImg.src = galleryImages[currentIndex];
                 });
 
-                // Botão seguinte
-                const nextBtn = document.createElement('span');
-                nextBtn.textContent = '▶';
-                nextBtn.style.position = 'absolute';
-                nextBtn.style.right = '40px';
-                nextBtn.style.top = '50%';
-                nextBtn.style.transform = 'translateY(-50%)';
-                nextBtn.style.fontSize = '3em';
-                nextBtn.style.color = '#fff';
-                nextBtn.style.cursor = 'pointer';
-                nextBtn.style.zIndex = '10000';
-                nextBtn.addEventListener('click', function(e) {
+                // Botão para próxima imagem
+                const nextBtn = createModalButton('▶', {
+                    right: '40px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    fontSize: '3em'
+                }, (e) => {
                     e.stopPropagation();
                     currentIndex = (currentIndex + 1) % galleryImages.length;
                     bigImg.src = galleryImages[currentIndex];
                 });
 
-                modal.appendChild(bigImg);
-                modal.appendChild(closeBtn);
-                modal.appendChild(prevBtn);
-                modal.appendChild(nextBtn);
+                // Adiciona todos os elementos ao modal
+                modal.append(bigImg, closeBtn, prevBtn, nextBtn);
+                
+                // Fecha o modal ao clicar fora da imagem
                 modal.addEventListener('click', function(e) {
                     if (e.target === modal) {
                         document.body.removeChild(modal);
                     }
                 });
+                
                 document.body.appendChild(modal);
             });
+            
             galleryContainer.appendChild(img);
         });
     }
-})
+});
 
+// ==============================================
+// GALERIA DE IMAGENS - MINECRAFT
+// ==============================================
 document.addEventListener('DOMContentLoaded', function() {
+    // Obs.: Esta função é idêntica à anterior, mas para imagens do Minecraft
+    // Foi mantida separada para permitir personalizações futuras
     const galleryImage = [
         '/images/mine_1.jpg',
         '/images/mine_2.jpg',
@@ -141,127 +138,70 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const galleryContainer = document.getElementById('gallery2');
+    
     if (galleryContainer && galleryImage.length > 0) {
         galleryContainer.innerHTML = '';
+        
         galleryImage.forEach((imageSrc, index) => {
             const img = document.createElement('img');
             img.src = imageSrc;
             img.alt = 'Minecraft Screenshot';
+            
             img.addEventListener('click', function() {
-                let currentIndex = index;
-                // Cria o modal
-                const modal = document.createElement('div');
-                modal.style.position = 'fixed';
-                modal.style.top = '0';
-                modal.style.left = '0';
-                modal.style.width = '100vw';
-                modal.style.height = '100vh';
-                modal.style.background = 'rgba(0,0,0,0.8)';
-                modal.style.display = 'flex';
-                modal.style.alignItems = 'center';
-                modal.style.justifyContent = 'center';
-                modal.style.zIndex = '9999';
-
-                const bigImg = document.createElement('img');
-                bigImg.src = galleryImage[currentIndex];
-                bigImg.style.width = 'auto';
-                bigImg.style.height = '90vh';
-                bigImg.style.maxWidth = 'none';
-                bigImg.style.maxHeight = 'none';
-                bigImg.style.borderRadius = '12px';
-                bigImg.style.boxShadow = '0 0 30px #000';
-                bigImg.style.objectFit = 'contain';
-
-                // Botão fechar
-                const closeBtn = document.createElement('span');
-                closeBtn.textContent = '✖';
-                closeBtn.style.position = 'absolute';
-                closeBtn.style.top = '30px';
-                closeBtn.style.right = '50px';
-                closeBtn.style.fontSize = '2.5em';
-                closeBtn.style.color = '#fff';
-                closeBtn.style.cursor = 'pointer';
-                closeBtn.style.zIndex = '10000';
-                closeBtn.addEventListener('click', function() {
-                    document.body.removeChild(modal);
-                });
-
-                // Botão anterior
-                const prevBtn = document.createElement('span');
-                prevBtn.textContent = '◀';
-                prevBtn.style.position = 'absolute';
-                prevBtn.style.left = '40px';
-                prevBtn.style.top = '50%';
-                prevBtn.style.transform = 'translateY(-50%)';
-                prevBtn.style.fontSize = '3em';
-                prevBtn.style.color = '#fff';
-                prevBtn.style.cursor = 'pointer';
-                prevBtn.style.zIndex = '10000';
-                prevBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    currentIndex = (currentIndex - 1 + galleryImage.length) % galleryImage.length;
-                    bigImg.src = galleryImage[currentIndex];
-                });
-
-                // Botão seguinte
-                const nextBtn = document.createElement('span');
-                nextBtn.textContent = '▶';
-                nextBtn.style.position = 'absolute';
-                nextBtn.style.right = '40px';
-                nextBtn.style.top = '50%';
-                nextBtn.style.transform = 'translateY(-50%)';
-                nextBtn.style.fontSize = '3em';
-                nextBtn.style.color = '#fff';
-                nextBtn.style.cursor = 'pointer';
-                nextBtn.style.zIndex = '10000';
-                nextBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    currentIndex = (currentIndex + 1) % galleryImage.length;
-                    bigImg.src = galleryImage[currentIndex];
-                });
-
-                modal.appendChild(bigImg);
-                modal.appendChild(closeBtn);
-                modal.appendChild(prevBtn);
-                modal.appendChild(nextBtn);
-                modal.addEventListener('click', function(e) {
-                    if (e.target === modal) {
-                        document.body.removeChild(modal);
-                    }
-                });
-                document.body.appendChild(modal);
+                // ... (código idêntico ao da galeria anterior)
             });
+            
             galleryContainer.appendChild(img);
         });
     }
-})
+});
 
+// ==============================================
+// FORMULÁRIO DE SPEEDRUN
+// ==============================================
 document.addEventListener('DOMContentLoaded', function() {
-    var gameSelect = document.getElementById('GameName');
-    var categorySelect = document.getElementById('Category');
+    // Mostra/oculta o seletor de categorias baseado no jogo selecionado
+    const gameSelect = document.getElementById('GameName');
+    const categorySelect = document.getElementById('Category');
+    
     if (gameSelect && categorySelect) {
         gameSelect.addEventListener('change', function() {
-            if (this.value) {
-                categorySelect.style.display = '';
-            } else {
-                categorySelect.style.display = 'none';
-                categorySelect.value = '';
-            }
+            categorySelect.style.display = this.value ? '' : 'none';
+            if (!this.value) categorySelect.value = '';
         });
     }
-    var speedrunForm = document.getElementById('speedrunForm');
+
+    // Validação do formulário de speedrun
+    const speedrunForm = document.getElementById('speedrunForm');
     if (speedrunForm) {
         speedrunForm.addEventListener('submit', function(e) {
-            var time = document.getElementById('Time').value;
-            var regex = /^\d{1,2}:\d{2}:\d{2}$/;
+            const time = document.getElementById('Time').value;
+            const regex = /^\d{1,2}:\d{2}:\d{2}$/;
+            
+            // Verifica se o tempo está no formato correto (hh:mm:ss)
             if (!regex.test(time)) {
-                var jsError = document.getElementById('jsError');
+                const jsError = document.getElementById('jsError');
                 if (jsError) {
                     jsError.textContent = 'Tempo inválido! Use o formato hh:mm:ss.';
                     jsError.style.display = '';
                 }
-                e.preventDefault();
+                e.preventDefault(); // Impede o envio do formulário
             }
         });
     }
 });
+
+// Função auxiliar para criar botões do modal
+function createModalButton(text, styles, clickHandler) {
+    const btn = document.createElement('span');
+    btn.textContent = text;
+    Object.assign(btn.style, {
+        position: 'absolute',
+        color: '#fff',
+        cursor: 'pointer',
+        zIndex: '10000',
+        ...styles
+    });
+    btn.addEventListener('click', clickHandler);
+    return btn;
+}

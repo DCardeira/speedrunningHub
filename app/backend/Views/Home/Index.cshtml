@@ -1,7 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";  // Define o título da página como "Home Page"
 }
 <main>
+    <!-- Secção de introdução -->
     <section id="intro">
         <h2>Bem-Vindos ao SpeedRunningHub!</h2>
         <p>
@@ -10,10 +11,17 @@
             recentes.
         </p>
     </section>
+
+    <!-- Secção de jogos -->
     <section id="games">
-        <h2>Jogos Populares </h2>
+        <h2>Jogos Populares</h2>
+        
+        <!-- Campo de filtro para pesquisar jogos -->
         <input type="text" id="gameFilter" placeholder="Filtrar jogos...">
+        
+        <!-- Lista de jogos disponíveis -->
         <ul id="gameList">
+            <!-- Cada item é um link para a página do respectivo jogo -->
             <li><a asp-controller="Home" asp-action="SuperMario64">Super Mario 64</a></li>
             <li><a asp-controller="Home" asp-action="Minecraft">Minecraft</a></li>
             <li><a asp-controller="Games" asp-action="Celeste">Celeste</a></li>
@@ -22,4 +30,6 @@
         </ul>
     </section>
 </main>
+
+<!-- Inclusão do arquivo JavaScript -->
 <script src="scripts.js"></script>

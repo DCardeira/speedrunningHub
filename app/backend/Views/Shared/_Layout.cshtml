@@ -1,20 +1,30 @@
 ﻿<!DOCTYPE html>
 <html lang="pt">
 <head>
+    <!-- Metadados básicos -->
     <meta charset="utf-8" />
+    <!-- Título dinâmico da página-->
     <title>@ViewData["Title"] - SpeedRunningHub</title>
+    <!-- Link para folha de estilos principal -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-
+    <!-- Cabeçalho do site -->
     <header>
+        <!-- Logo/Nome do site -->
         <h1>SpeedRunningHub</h1>
+        
+        <!-- Navegação principal -->
         <nav>
             <ul>
+                <!-- Item para página inicial -->
                 <li><a asp-controller="Home" asp-action="Index">Início</a></li>
+                
+                <!-- Dropdown de jogos -->
                 <li class="dropdown">
                     <a class="dropbtn">Jogos</a>
                     <div class="dropdown-content">
+                        <!-- Links para páginas de jogos específicos -->
                         <a asp-controller="Home" asp-action="SuperMario64">Super Mario 64</a>
                         <a asp-controller="Home" asp-action="Minecraft">Minecraft</a>
                         <a asp-controller="Games" asp-action="Celeste">Celeste</a>
@@ -22,6 +32,8 @@
                         <a asp-controller="Games" asp-action="DarkSouls">Dark Souls</a>
                     </div>
                 </li>
+                
+                <!-- Demais links de navegação -->
                 <li><a asp-controller="Home" asp-action="Submit">Submeter Speedrun</a></li>
                 <li><a asp-controller="Home" asp-action="About">Sobre</a></li>
                 <li><a asp-controller="Home" asp-action="Login">Login</a></li>
@@ -29,12 +41,15 @@
         </nav>
     </header>
 
+    <!-- Conteúdo principal da página -->
     <main role="main" class="container">
-        @RenderBody()  <!-- Esta linha é obrigatória -->
+        <!-- Renderiza o conteúdo específico de cada view -->
+        @RenderBody()  
     </main>
 
-
+    <!-- Scripts JavaScript -->
     <script src="~/js/scripts.js" asp-append-version="true"></script>
+    <!-- Seção opcional para scripts específicos de views -->
     @RenderSection("Scripts", required: false)
 </body>
 </html>
