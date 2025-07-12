@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\SpeedRunningHub.csproj": {}
+    "/Users/abeillemaia/Developer/speedrunningHub/app/backend/SpeedRunningHub.csproj": {}
   },
   "projects": {
-    "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\SpeedRunningHub.csproj": {
+    "/Users/abeillemaia/Developer/speedrunningHub/app/backend/SpeedRunningHub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\SpeedRunningHub.csproj",
+        "projectUniqueName": "/Users/abeillemaia/Developer/speedrunningHub/app/backend/SpeedRunningHub.csproj",
         "projectName": "SpeedRunningHub",
-        "projectPath": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\SpeedRunningHub.csproj",
-        "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\obj\\",
+        "projectPath": "/Users/abeillemaia/Developer/speedrunningHub/app/backend/SpeedRunningHub.csproj",
+        "packagesPath": "/Users/abeillemaia/.nuget/packages/",
+        "outputPath": "/Users/abeillemaia/Developer/speedrunningHub/app/backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\diogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/abeillemaia/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {

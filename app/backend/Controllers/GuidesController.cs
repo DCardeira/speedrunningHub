@@ -1,3 +1,5 @@
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +15,7 @@ namespace SpeedRunningHub.Controllers {
     public class GuidesController : ControllerBase {
         // Dependências: contexto da base de dados e serviço de blobs Azure
         private readonly AppDbContext _context;
-        private readonly IWebHostEnvironment _env;
-        private readonly IHubContext<NotificationHub> _hubContext;
+        private readonly BlobServiceClient _blobService;
 
         // Construtor: injeta dependências
         public GuidesController(AppDbContext context, BlobServiceClient blobService) {
@@ -39,7 +40,12 @@ namespace SpeedRunningHub.Controllers {
             var guide = await _context.Guides
                 .Include(g => g.User)
                 .Include(g => g.GuideImages)
-                .ToListAsync();
+                .FirstOrDefaultAsync(g => g.GuideId == guideId && g.GameId == gameId);
+
+            if (guide == null) {
+                return NotFound();
+            }
+            return Ok(guide);
         }
 
         // Cria um novo guia para um jogo (apenas utilizadores com o papel 'Runner')
@@ -54,7 +60,7 @@ namespace SpeedRunningHub.Controllers {
             _context.Guides.Add(guide);
             await _context.SaveChangesAsync();
             // Retorna o guia criado
-            return CreatedAtAction(nameof(GetGuides), new { gameId = gameId }, guide);
+            return CreatedAtAction(nameof(GetGuidesForGame), new { gameId = gameId }, guide);
         }
 
         // Faz upload de uma imagem para um guia específico (apenas utilizadores com o papel 'Runner')
@@ -65,6 +71,11 @@ namespace SpeedRunningHub.Controllers {
             // Valida se o ficheiro foi recebido
             if (file == null || file.Length == 0)
                 return BadRequest("Nenhum ficheiro recebido.");
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null) {
+                return Unauthorized("User ID could not be determined from token.");
+            }
 
             // Obtém o container de blobs e cria se não existir
             var container = _blobService.GetBlobContainerClient("guide-images");
@@ -83,7 +94,7 @@ namespace SpeedRunningHub.Controllers {
                 FileName         = blobName,
                 FilePath         = blobClient.Uri.ToString(),
                 UploadedAt       = DateTime.UtcNow,
-                UploadedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                UploadedByUserId = userId
             };
             _context.GuideImages.Add(record);
             await _context.SaveChangesAsync();

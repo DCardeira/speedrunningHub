@@ -1,35 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";  // Define o título da página como "Home Page"
+    // Define o título que será exibido na aba do navegador, conforme configurado no _Layout.cshtml
+    ViewData["Title"] = "Página Inicial";
 }
-<main>
-    <!-- Secção de introdução -->
-    <section id="intro">
-        <h2>Bem-Vindos ao SpeedRunningHub!</h2>
-        <p>
-            Descobre o mundo excitante do speedrunning, onde jogadores competem para completar jogos em tempo recorde.
-            Entra na nossa comunidade para aprender os truques, ver os recordes, e ficar atualizado com os recordes mais
-            recentes.
-        </p>
-    </section>
 
-    <!-- Secção de jogos -->
-    <section id="games">
-        <h2>Jogos Populares</h2>
-        
-        <!-- Campo de filtro para pesquisar jogos -->
-        <input type="text" id="gameFilter" placeholder="Filtrar jogos...">
-        
-        <!-- Lista de jogos disponíveis -->
-        <ul id="gameList">
-            <!-- Cada item é um link para a página do respectivo jogo -->
-            <li><a asp-controller="Home" asp-action="SuperMario64">Super Mario 64</a></li>
-            <li><a asp-controller="Home" asp-action="Minecraft">Minecraft</a></li>
-            <li><a asp-controller="Games" asp-action="Celeste">Celeste</a></li>
-            <li><a asp-controller="Games" asp-action="HollowKnight">Hollow Knight</a></li>
-            <li><a asp-controller="Games" asp-action="DarkSouls">Dark Souls</a></li>
-        </ul>
-    </section>
-</main>
+<!-- Seção de boas-vindas (Jumbotron) -->
+<!-- 'p-5' e 'mb-4' são classes de espaçamento do Bootstrap (padding e margin-bottom) -->
+<!-- 'bg-light' e 'rounded-3' definem um fundo cinza claro e cantos arredondados -->
+<div class="p-5 mb-4 bg-light rounded-3 text-center">
+    <div class="container-fluid py-5">
+        <!-- 'display-5' e 'fw-bold' estilizam o título para ser grande e em negrito -->
+        <h1 class="display-5 fw-bold">Bem-vindo ao SpeedRunningHub</h1>
+        <!-- A classe 'lead' dá um destaque sutil ao parágrafo de introdução -->
+        <p class="lead">A sua comunidade central para recordes, guias e discussões sobre speedrunning. Explore os jogos, melhore os seus tempos e junte-se à competição!</p>
+        <!-- Botão estilizado com Bootstrap ('btn', 'btn-primary', 'btn-lg') para chamar a atenção -->
+        <a class="btn btn-primary btn-lg" asp-controller="Home" asp-action="Submit" role="button">Submeter um Recorde</a>
+    </div>
+</div>
 
-<!-- Inclusão do arquivo JavaScript -->
-<script src="scripts.js"></script>
+<!-- Seção de jogos em destaque, utilizando o sistema de grid do Bootstrap -->
+<div class="row">
+    <!-- Título da seção com uma borda inferior para separação visual -->
+    <h2 class="pb-2 mb-4 border-bottom">Jogos em Destaque</h2>
+
+    <!-- Coluna para o primeiro jogo -->
+    <!-- 'col-md-6' faz com que em telas de tamanho médio (md) ou maiores, a coluna ocupe 50% da largura -->
+    <!-- 'mb-4' adiciona uma margem na parte inferior para espaçamento -->
+    <div class="col-md-6 mb-4">
+        <!-- O componente 'card' é um container flexível para conteúdo -->
+        <!-- 'h-100' faz com que todos os cards na mesma linha tenham a mesma altura -->
+        <div class="card h-100">
+            <!-- Imagem do card, que se ajusta ao topo do card -->
+            <img src="~/images/supermario64_banner.jpg" class="card-img-top" alt="Super Mario 64">
+            <!-- Corpo do card onde o texto é colocado -->
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Super Mario 64</h5>
+                <p class="card-text">Um clássico revolucionário do 3D platforming, com uma comunidade de speedrunning ativa e cheia de truques.</p>
+                <!-- 'mt-auto' empurra o botão para o final do card, alinhando-o com os outros cards -->
+                <a asp-controller="Home" asp-action="SuperMario64" class="btn btn-dark mt-auto">Ver Recordes</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coluna para o segundo jogo -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <img src="~/images/minecraft_banner.jpg" class="card-img-top" alt="Minecraft">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Minecraft</h5>
+                <p class="card-text">O gigante sandbox que oferece inúmeras categorias de speedrun, desde derrotar o Ender Dragon até obter todos os avanços.</p>
+                <a asp-controller="Home" asp-action="Minecraft" class="btn btn-dark mt-auto">Ver Recordes</a>
+            </div>
+        </div>
+    </div>
+</div>

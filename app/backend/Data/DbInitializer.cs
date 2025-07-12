@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Identity;
 namespace SpeedRunningHub.Data {
     public class DbInitializer {
         private readonly AppDbContext _context;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         // Construtor: injeta o contexto da base de dados
-        public DbInitializer(AppDbContext context) {
+        public DbInitializer(AppDbContext context, UserManager<User> userManager, RoleManager<Role> roleManager) {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
@@ -22,26 +24,22 @@ namespace SpeedRunningHub.Data {
             }
 
             // Popula os papéis (Roles) se não existirem
-            if (!await _context.Roles.AnyAsync()) {
-                _context.Roles.AddRange(
-                    new Role { Name = "Runner" },
-                    new Role { Name = "Moderator" }
-                );
-                await _context.SaveChangesAsync();
+            if (!await _roleManager.RoleExistsAsync("Runner")) {
+                await _roleManager.CreateAsync(new Role { Name = "Runner" });
+            }
+            if (!await _roleManager.RoleExistsAsync("Moderator")) {
+                await _roleManager.CreateAsync(new Role { Name = "Moderator" });
             }
 
             // Cria utilizador admin e atribui papel de Moderator se não existir
-            if (!await _context.Users.AnyAsync(u => u.UserRoles.Any(ur => ur.Role.Name == "Moderator"))) {
+            if (!(await _userManager.GetUsersInRoleAsync("Moderator")).Any()) {
                 var admin = new User {
                     UserName = "admin",
                     Email = "admin@fastruns.com",
-                    EmailConfirmed = true // Important for some Identity features
+                    EmailConfirmed = true
                 };
-
-                // Create the user with a password
                 var result = await _userManager.CreateAsync(admin, "Admin#123");
                 if (result.Succeeded) {
-                    // Assign the 'Moderator' role
                     await _userManager.AddToRoleAsync(admin, "Moderator");
                 }
             }

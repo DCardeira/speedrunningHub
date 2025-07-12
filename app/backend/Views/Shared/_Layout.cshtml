@@ -1,55 +1,101 @@
 ﻿<!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" class="h-100"> <!-- Adicionado h-100 para o layout de altura total (necessário para o footer fixo) -->
 <head>
     <!-- Metadados básicos -->
     <meta charset="utf-8" />
+    <!-- Meta tag para responsividade, essencial para o funcionamento do Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Título dinâmico da página-->
     <title>@ViewData["Title"] - SpeedRunningHub</title>
-    <!-- Link para folha de estilos principal -->
+
+    <!-- CSS do Bootstrap via CDN para estilos modernos e responsivos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <!-- Link para folha de estilos principal (pode ser usado para personalizações sobre o Bootstrap) -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
-    <!-- Cabeçalho do site -->
+<body class="d-flex flex-column h-100"> <!-- Classes Bootstrap para layout de footer fixo -->
+    <!-- Cabeçalho do site, refatorado com a barra de navegação do Bootstrap -->
     <header>
-        <!-- Logo/Nome do site -->
-        <h1>SpeedRunningHub</h1>
-        
-        <!-- Navegação principal -->
-        <nav>
-            <ul>
-                <!-- Item para página inicial -->
-                <li><a asp-controller="Home" asp-action="Index">Início</a></li>
+        <!-- A tag nav substitui o header anterior para uma estrutura semântica e compatível com Bootstrap -->
+        <!-- 'navbar-expand-lg' faz a navbar ser responsiva, colapsando em telas menores (lg = large) -->
+        <!-- 'navbar-dark' e 'bg-dark' definem o tema escuro da navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <!-- Logo/Nome do site, agora como um link de marca da navbar -->
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">SpeedRunningHub</a>
                 
-                <!-- Dropdown de jogos -->
-                <li class="dropdown">
-                    <a class="dropbtn">Jogos</a>
-                    <div class="dropdown-content">
-                        <!-- Links para páginas de jogos específicos -->
-                        <a asp-controller="Home" asp-action="SuperMario64">Super Mario 64</a>
-                        <a asp-controller="Home" asp-action="Minecraft">Minecraft</a>
-                        <a asp-controller="Games" asp-action="Celeste">Celeste</a>
-                        <a asp-controller="Games" asp-action="HollowKnight">Hollow Knight</a>
-                        <a asp-controller="Games" asp-action="DarkSouls">Dark Souls</a>
-                    </div>
-                </li>
-                
-                <!-- Demais links de navegação -->
-                <li><a asp-controller="Home" asp-action="Submit">Submeter Speedrun</a></li>
-                <li><a asp-controller="Home" asp-action="About">Sobre</a></li>
-                <li><a asp-controller="Home" asp-action="Login">Login</a></li>
-            </ul>
+                <!-- Botão 'hamburger' para exibir o menu em telas pequenas -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Conteúdo da navegação que será colapsado em telas menores -->
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                    <!-- Navegação principal alinhada à esquerda -->
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Item para página inicial -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Início</a>
+                        </li>
+                        
+                        <!-- Dropdown de jogos, agora usando componentes do Bootstrap -->
+                        <li class="nav-item dropdown">
+                            <!-- 'data-bs-toggle="dropdown"' ativa a funcionalidade do dropdown via JavaScript do Bootstrap -->
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Jogos
+                            </a>
+                            <!-- Lista de itens do dropdown -->
+                            <ul class="dropdown-menu">
+                                <!-- Links para páginas de jogos específicos -->
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="SuperMario64">Super Mario 64</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Minecraft">Minecraft</a></li>
+                                <li><a class="dropdown-item" asp-controller="Games" asp-action="Celeste">Celeste</a></li>
+                                <li><a class="dropdown-item" asp-controller="Games" asp-action="HollowKnight">Hollow Knight</a></li>
+                                <li><a class="dropdown-item" asp-controller="Games" asp-action="DarkSouls">Dark Souls</a></li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Demais links de navegação -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Submit">Submeter Speedrun</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="About">Sobre</a>
+                        </li>
+                    </ul>
+                    <!-- Navegação secundária (login) alinhada à direita -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Login">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
 
     <!-- Conteúdo principal da página -->
-    <main role="main" class="container">
+    <!-- A classe 'container' do Bootstrap centraliza e define uma largura máxima para o conteúdo -->
+    <main role="main" class="container mt-4">
         <!-- Renderiza o conteúdo específico de cada view -->
         @RenderBody()  
     </main>
 
+    <!-- Rodapé, agora fixo na parte inferior da página e estilizado com Bootstrap -->
+    <footer class="footer mt-auto py-3 bg-light border-top">
+        <div class="container">
+            &copy; 2025 - SpeedRunningHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
+        </div>
+    </footer>
+
     <!-- Scripts JavaScript -->
+    <!-- Bundle do Bootstrap que inclui Popper.js, necessário para componentes interativos como dropdowns -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Script personalizado do site -->
     <script src="~/js/scripts.js" asp-append-version="true"></script>
     <!-- Seção opcional para scripts específicos de views -->
-    @RenderSection("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

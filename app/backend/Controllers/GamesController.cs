@@ -76,14 +76,12 @@ namespace SpeedRunningHub.Controllers
         // POST: api/Games/5/images
         [HttpPost("{gameId}/images")]
         [Authorize(Roles = "Moderator")]
-        public async Task<IActionResult> UploadGameImage(int gameId, IFormFile file)
-        {
+        public async Task<IActionResult> UploadGameImage(int gameId, IFormFile file) {
             if (file == null || file.Length == 0)
                 return BadRequest("Nenhum ficheiro recebido.");
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null) {
-                // This case should be rare for an authorized user, but it's good practice to handle it.
                 return Unauthorized("User ID could not be determined from token.");
             }
 
@@ -101,7 +99,7 @@ namespace SpeedRunningHub.Controllers
                 FileName = blobName,
                 FilePath = blobClient.Uri.ToString(),
                 UploadedAt = DateTime.UtcNow,
-                UploadedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                UploadedByUserId = userId
             };
             _context.GameImages.Add(record);
             await _context.SaveChangesAsync();
