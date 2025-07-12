@@ -7,17 +7,20 @@ using SpeedRunningHub.Models;
 using System.Security.Claims;
 
 namespace SpeedRunningHub.Controllers {
+    // Controlador responsável pela gestão dos registos de speedruns
     [ApiController]
     // A rota agora está aninhada sob os jogos, como planeado.
     [Route("api/games/{gameId}/runs")]
     public class RunsController : ControllerBase {
+        // Contexto da base de dados
         private readonly AppDbContext _context;
 
+        // Construtor: injeta o contexto
         public RunsController(AppDbContext context) {
             _context = context;
         }
 
-        // Obtém todas as corridas aprovadas para um jogo específico.
+        // Obtém todos os registos de speedruns
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SpeedrunRecord>>> GetRunsForGame(int gameId) {
             var runs = await _context.SpeedrunRecords
@@ -28,28 +31,15 @@ namespace SpeedRunningHub.Controllers {
             return Ok(runs);
         }
 
-        // Obtém uma corrida específica pelo seu ID.
-        [HttpGet("{runId:int}", Name = "GetRunById")]
-        public async Task<ActionResult<SpeedrunRecord>> GetRun(int gameId, int runId) {
-            var run = await _context.SpeedrunRecords
-                .Include(r => r.User)
-                .FirstOrDefaultAsync(r => r.GameId == gameId && r.RunId == runId);
-
-            if (run == null) return NotFound();
-            
-            // Se a corrida não estiver aprovada, apenas o próprio utilizador ou um moderador a pode ver.
-            if (!run.IsApproved) {
-                var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var userRoles = User.FindAll(ClaimTypes.Role).Select(c => c.Value);
-                if (run.UserId != currentUserId && !userRoles.Contains("Moderator")) {
-                    return Forbid(); // Retorna 403 Forbidden se não tiver permissão.
-                }
-            }
-
-            return Ok(run);
+        // Obtém um registo de speedrun pelo seu ID
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<SpeedrunRecord>> GetRun(int id) {
+            var run = await _context.SpeedrunRecords.FirstOrDefaultAsync(r => r.RunId == id);
+            if (run is null) return NotFound();
+            return run;
         }
 
-        // Cria uma nova submissão de corrida. Apenas para utilizadores com papel "Runner" ou "Moderator".
+        // Cria um novo registo de speedrun (apenas utilizadores com o papel 'Runner')
         [HttpPost]
         [Authorize(Roles = "Runner,Moderator")]
         public async Task<ActionResult<SpeedrunRecord>> CreateRun(int gameId, [FromBody] RunCreateDto runDto) {
@@ -76,25 +66,20 @@ namespace SpeedRunningHub.Controllers {
             return CreatedAtRoute("GetRunById", new { gameId = newRun.GameId, runId = newRun.RunId }, newRun);
         }
 
-        // Aprova uma corrida. Apenas para moderadores.
-        [HttpPut("{runId}/approve")]
-        [Authorize(Roles = "Moderator")]
-        public async Task<IActionResult> ApproveRun(int gameId, int runId) {
-            var run = await _context.SpeedrunRecords.FirstOrDefaultAsync(r => r.GameId == gameId && r.RunId == runId);
-            if (run == null) return NotFound();
-
-            run.IsApproved = true;
+        // Atualiza um registo de speedrun existente
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateRun(int id, SpeedrunRecord run) {
+            if (id != run.RunId) return BadRequest();
+            _context.Entry(run).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent(); // Retorna 204 No Content.
         }
 
-        // Apaga uma corrida. Apenas para moderadores.
-        [HttpDelete("{runId}")]
-        [Authorize(Roles = "Moderator")]
-        public async Task<IActionResult> DeleteRun(int gameId, int runId) {
-            var run = await _context.SpeedrunRecords.FirstOrDefaultAsync(r => r.GameId == gameId && r.RunId == runId);
-            if (run == null) return NotFound();
-
+        // Remove um registo de speedrun
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteRun(int id) {
+            var run = await _context.SpeedrunRecords.FindAsync(id);
+            if (run is null) return NotFound();
             _context.SpeedrunRecords.Remove(run);
             await _context.SaveChangesAsync();
             return NoContent(); // Retorna 204 No Content.

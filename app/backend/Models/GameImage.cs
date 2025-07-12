@@ -1,13 +1,14 @@
+// Modelo que representa uma imagem associada a um jogo
 namespace SpeedRunningHub.Models{
     public class GameImage{
-        public int GameImageId { get; set; }
-        public int GameId { get; set; }
-        public string FileName { get; set; }
-        public string FilePath { get; set; }
-        public DateTime UploadedAt { get; set; }
-        public string UploadedByUserId { get; set; }
+        public int GameImageId { get; set; }         // Identificador único da imagem
+        public int GameId { get; set; }              // Id do jogo associado
+        public string FileName { get; set; }         // Nome do ficheiro
+        public string FilePath { get; set; }         // Caminho/URL do ficheiro
+        public DateTime UploadedAt { get; set; }     // Data de upload
+        public string UploadedByUserId { get; set; } // Id do utilizador que fez upload
 
-        public Game Game { get; set; }
-        public User UploadedBy { get; set; }
+        public Game Game { get; set; }               // Navegação para o jogo
+        public User UploadedBy { get; set; }         // Navegação para o utilizador
     }
 }

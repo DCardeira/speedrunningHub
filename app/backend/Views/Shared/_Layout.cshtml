@@ -1,49 +1,55 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
+    <!-- Metadados básicos -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título dinâmico da página-->
     <title>@ViewData["Title"] - SpeedRunningHub</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Link para folha de estilos principal -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SpeedRunningHub.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <!-- Cabeçalho do site -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SpeedRunningHub</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <!-- Logo/Nome do site -->
+        <h1>SpeedRunningHub</h1>
+        
+        <!-- Navegação principal -->
+        <nav>
+            <ul>
+                <!-- Item para página inicial -->
+                <li><a asp-controller="Home" asp-action="Index">Início</a></li>
+                
+                <!-- Dropdown de jogos -->
+                <li class="dropdown">
+                    <a class="dropbtn">Jogos</a>
+                    <div class="dropdown-content">
+                        <!-- Links para páginas de jogos específicos -->
+                        <a asp-controller="Home" asp-action="SuperMario64">Super Mario 64</a>
+                        <a asp-controller="Home" asp-action="Minecraft">Minecraft</a>
+                        <a asp-controller="Games" asp-action="Celeste">Celeste</a>
+                        <a asp-controller="Games" asp-action="HollowKnight">Hollow Knight</a>
+                        <a asp-controller="Games" asp-action="DarkSouls">Dark Souls</a>
+                    </div>
+                </li>
+                
+                <!-- Demais links de navegação -->
+                <li><a asp-controller="Home" asp-action="Submit">Submeter Speedrun</a></li>
+                <li><a asp-controller="Home" asp-action="About">Sobre</a></li>
+                <li><a asp-controller="Home" asp-action="Login">Login</a></li>
+            </ul>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - SpeedRunningHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <!-- Conteúdo principal da página -->
+    <main role="main" class="container">
+        <!-- Renderiza o conteúdo específico de cada view -->
+        @RenderBody()  
+    </main>
+
+    <!-- Scripts JavaScript -->
+    <script src="~/js/scripts.js" asp-append-version="true"></script>
+    <!-- Seção opcional para scripts específicos de views -->
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

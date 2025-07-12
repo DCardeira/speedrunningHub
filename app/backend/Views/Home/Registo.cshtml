@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Registo";
+}
+<main>
+    <section id="register-section" class="form-section">
+        <h2>Registo</h2>
+        <form asp-action="Registo" method="post">
+            <div>
+                <label for="newUsername">Username</label><br>
+                <input type="text" id="newUsername" name="newUsername" class="form-input" />
+            </div>
+            <div>
+                <label for="newPassword">Password</label><br>
+                <input type="password" id="newPassword" name="newPassword" class="form-input" />
+            </div>
+            <button type="submit" class="form-btn alt">Registrar</button>
+        </form>
+        @if(ViewBag.RegisterError != null) {
+            <div class="form-msg-error">@ViewBag.RegisterError</div>
+        }
+        @if(ViewBag.RegisterSuccess != null) {
+            <div class="form-msg-success">@ViewBag.RegisterSuccess</div>
+        }
+        <div style="margin-top:2em;text-align:center;">
+            <a asp-action="Login" asp-controller="Home" class="form-btn">Voltar ao Login</a>
+        </div>
+    </section>
+</main>

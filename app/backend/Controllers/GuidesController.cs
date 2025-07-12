@@ -11,17 +11,19 @@ namespace SpeedRunningHub.Controllers {
     [ApiController]
     [Route("api/games/{gameId}/guides")]
     public class GuidesController : ControllerBase {
+        // Dependências: contexto da base de dados e serviço de blobs Azure
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
         private readonly IHubContext<NotificationHub> _hubContext;
 
-        public GuidesController(AppDbContext context, IWebHostEnvironment env, IHubContext<NotificationHub> hubContext) {
-            _context = context;
-            _env = env;
-            _hubContext = hubContext;
+        // Construtor: injeta dependências
+        public GuidesController(AppDbContext context, BlobServiceClient blobService) {
+            _context     = context;
+            _blobService = blobService;
         }
 
-        // Obtém todos os guias aprovados para um jogo específico.
+        // Obtém todos os guias aprovados para um jogo específico
+        // GET: api/games/5/guides
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Guide>>> GetGuidesForGame(int gameId) {
             var guides = await _context.Guides
@@ -37,106 +39,57 @@ namespace SpeedRunningHub.Controllers {
             var guide = await _context.Guides
                 .Include(g => g.User)
                 .Include(g => g.GuideImages)
-                .FirstOrDefaultAsync(g => g.GameId == gameId && g.GuideId == guideId);
-
-            if (guide == null) return NotFound();
-
-            // Se o guia não estiver aprovado, apenas o autor ou um moderador o pode ver.
-            if (!guide.IsApproved) {
-                var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var userRoles = User.FindAll(ClaimTypes.Role).Select(c => c.Value);
-                if (guide.UserId != currentUserId && !userRoles.Contains("Moderator")) {
-                    return Forbid();
-                }
-            }
-
-            return Ok(guide);
+                .ToListAsync();
         }
 
-        // Cria um novo guia. Apenas para utilizadores com papel "Runner" ou "Moderator".
+        // Cria um novo guia para um jogo (apenas utilizadores com o papel 'Runner')
+        // POST: api/games/5/guides
         [HttpPost]
-        [Authorize(Roles = "Runner,Moderator")]
-        public async Task<ActionResult<Guide>> CreateGuide(int gameId, [FromBody] GuideCreateDto guideDto) {
-            if (!await _context.Games.AnyAsync(g => g.GameId == gameId))
-                return NotFound("Jogo não encontrado.");
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null) return Unauthorized();
-
-            var newGuide = new Guide {
-                GameId = gameId,
-                UserId = userId,
-                Title = guideDto.Title,
-                Content = guideDto.Content,
-                DateCreated = DateTime.UtcNow,
-                IsApproved = false // Novos guias começam como não aprovados.
-            };
-
-            _context.Guides.Add(newGuide);
+        [Authorize(Roles = "Runner")]
+        public async Task<ActionResult<Guide>> PostGuide(int gameId, Guide guide) {
+            // Define propriedades do guia antes de guardar
+            guide.GameId      = gameId;
+            guide.DateCreated = DateTime.UtcNow;
+            guide.IsApproved  = false;
+            _context.Guides.Add(guide);
             await _context.SaveChangesAsync();
-
-            return CreatedAtRoute("GetGuideById", new { gameId = newGuide.GameId, guideId = newGuide.GuideId }, newGuide);
+            // Retorna o guia criado
+            return CreatedAtAction(nameof(GetGuides), new { gameId = gameId }, guide);
         }
 
-        // Aprova um guia. Apenas para moderadores.
-        [HttpPut("{guideId}/approve")]
-        [Authorize(Roles = "Moderator")]
-        public async Task<IActionResult> ApproveGuide(int gameId, int guideId) {
-            var guide = await _context.Guides.FirstOrDefaultAsync(g => g.GameId == gameId && g.GuideId == guideId);
-            if (guide == null) return NotFound();
-
-            guide.IsApproved = true;
-            await _context.SaveChangesAsync();
-            await _hubContext.Clients.All.SendAsync("NewGuideApproved", guideId, "Um novo guia foi aprovado!");
-            return NoContent();
-        }
-
-        // Apaga um guia. Apenas para moderadores.
-        [HttpDelete("{guideId}")]
-        [Authorize(Roles = "Moderator")]
-        public async Task<IActionResult> DeleteGuide(int gameId, int guideId) {
-            var guide = await _context.Guides.FirstOrDefaultAsync(g => g.GameId == gameId && g.GuideId == guideId);
-            if (guide == null) return NotFound();
-
-            _context.Guides.Remove(guide);
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        // Endpoint para fazer upload de uma imagem para um guia.
+        // Faz upload de uma imagem para um guia específico (apenas utilizadores com o papel 'Runner')
+        // POST: api/games/5/guides/10/images
         [HttpPost("{guideId}/images")]
         [Authorize(Roles = "Runner,Moderator")]
         public async Task<IActionResult> UploadGuideImage(int gameId, int guideId, IFormFile file) {
-            var guide = await _context.Guides.FindAsync(guideId);
-            if (guide == null || guide.GameId != gameId) return NotFound("Guia não encontrado.");
+            // Valida se o ficheiro foi recebido
+            if (file == null || file.Length == 0)
+                return BadRequest("Nenhum ficheiro recebido.");
 
-            // Verifica se o utilizador autenticado é o autor do guia.
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (guide.UserId != userId) return Forbid();
+            // Obtém o container de blobs e cria se não existir
+            var container = _blobService.GetBlobContainerClient("guide-images");
+            await container.CreateIfNotExistsAsync(PublicAccessType.Blob);
 
-            if (file == null || file.Length == 0) return BadRequest("Ficheiro não enviado.");
+            // Gera nome único para o blob
+            var blobName = $"{guideId}/{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            var blobClient = container.GetBlobClient(blobName);
 
-            var uploadsFolderPath = Path.Combine(_env.WebRootPath, "uploads", "guides");
-            if (!Directory.Exists(uploadsFolderPath)) {
-                Directory.CreateDirectory(uploadsFolderPath);
-            }
+            // Faz upload do ficheiro para o Azure Blob Storage
+            await blobClient.UploadAsync(file.OpenReadStream(), new BlobHttpHeaders { ContentType = file.ContentType });
 
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-            var filePath = Path.Combine(uploadsFolderPath, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create)) {
-                await file.CopyToAsync(stream);
-            }
-
-            var guideImage = new GuideImage {
-                GuideId = guideId,
-                FilePath = $"/uploads/guides/{fileName}"
+            // Regista a imagem na base de dados
+            var record = new GuideImage {
+                GuideId          = guideId,
+                FileName         = blobName,
+                FilePath         = blobClient.Uri.ToString(),
+                UploadedAt       = DateTime.UtcNow,
+                UploadedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
-
-            _context.GuideImages.Add(guideImage);
+            _context.GuideImages.Add(record);
             await _context.SaveChangesAsync();
 
-            return Ok(new { filePath = guideImage.FilePath });
+            // Retorna o id e caminho da imagem
+            return Ok(new { record.GuideImageId, record.FilePath });
         }
     }
 }

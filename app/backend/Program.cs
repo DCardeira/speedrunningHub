@@ -93,14 +93,7 @@ builder.Services.AddCors(options => {
 
 
 builder.Services.AddAuthorization();
-builder.Services.AddControllers();
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSignalR();
-builder.Services.AddSession(options => {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DbInitializer>();
 
 Console.WriteLine("--> Serviços configurados. A construir a aplicação...");
@@ -133,12 +126,5 @@ app.UseCors("AllowMyFrontend");
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-
-Console.WriteLine("--> Pipeline configurada. A mapear controladores...");
-
-app.MapControllers();
-app.MapHub<NotificationHub>("/notificationHub"); // Se já tiver adicionado o SignalR
-
-Console.WriteLine("--> Controladores mapeados. A executar a aplicação.");
-
+app.MapDefaultControllerRoute();
 app.Run();

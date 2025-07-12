@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Login";  // Define o título da página como "Login"
+}
+<main>
+    <!-- Seção principal de login -->
+    <section id="login-section" class="form-section">
+        <h2>Login</h2>
+        
+        <!-- Formulário de login com método POST -->
+        <form asp-action="Login" method="post">
+            <!-- Campo para nome de utilizador -->
+            <div>
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username" class="form-input" />
+            </div>
+            
+            <!-- Campo para senha -->
+            <div>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="password" class="form-input" />
+            </div>
+            
+            <!-- Botão de submissão do formulário -->
+            <button type="submit" class="form-btn">Entrar</button>
+        </form>
+
+        <!-- Exibe mensagem de erro caso exista -->
+        @if(ViewBag.Error != null) {
+            <div class="form-msg-error">@ViewBag.Error</div>
+        }
+
+        <!-- Link/alternativa para página de registo -->
+        <div style="margin-top:2em;text-align:center;">
+            <a asp-action="Registo" asp-controller="Home" class="form-btn alt">Registar</a>
+        </div>
+    </section>
+</main>

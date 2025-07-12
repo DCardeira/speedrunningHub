@@ -1,0 +1,57 @@
+@{
+    // Define o título da página e obtém listas de jogos e categorias do ViewBag
+    ViewData["Title"] = "Submeter Speedrun";
+    var games = ViewBag.Games as List<string>;
+    var categories = ViewBag.Categories as List<string>;
+}
+
+<!-- Container principal do formulário -->
+<div class="form-section">
+    <h2 style="text-align:center;">Submeter Speedrun</h2>
+    
+    <!-- Exibe mensagem de sucesso se existir -->
+    @if (ViewBag.Success != null)
+    {
+        <div class="form-msg-success">@ViewBag.Success</div>
+    }
+    
+    <!-- Exibe mensagem de erro se existir -->
+    @if (ViewBag.Error != null)
+    {
+        <div class="form-msg-error">@ViewBag.Error</div>
+    }
+    
+    <!-- Formulário de submissão de speedrun -->
+    <form asp-action="Submit" method="post" id="speedrunForm">
+        <!-- Dropdown para seleção do jogo -->
+        <select class="form-input" id="GameName" name="GameName" required>
+            <option value="">Selecione o Jogo</option>
+            @foreach (var game in games ?? new List<string>())
+            {
+                <option value="@game">@game</option>
+            }
+        </select>
+        
+        <!-- Dropdown para seleção da categoria (inicialmente oculto) -->
+        <select class="form-input" id="Category" name="Category" style="display:none;" required>
+            <option value="">Selecione a Categoria</option>
+            @foreach (var cat in categories ?? new List<string>())
+            {
+                <option value="@cat">@cat</option>
+            }
+        </select>
+        
+        <!-- Campos do formulário -->
+        <input type="text" class="form-input" id="Country" name="Country" placeholder="País" required />
+        <input type="text" class="form-input" id="Platform" name="Platform" placeholder="Plataforma" required />
+        <input type="text" class="form-input" id="Time" name="Time" placeholder="Tempo (hh:mm:ss)" required />
+        <input type="url" class="form-input" id="VideoUrl" name="VideoUrl" placeholder="URL do Vídeo" required />
+        <input type="text" class="form-input" id="RunnerName" name="RunnerName" placeholder="Nome do Runner" required />
+        
+        <!-- Botão de submissão -->
+        <button type="submit" class="form-btn">Submeter</button>
+    </form>
+    
+    <!-- Div para exibir erros de JavaScript (inicialmente oculta) -->
+    <div id="jsError" class="form-msg-error" style="display:none;"></div>
+</div>
