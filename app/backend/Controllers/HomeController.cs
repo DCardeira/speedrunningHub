@@ -18,12 +18,21 @@ public class HomeController : Controller
         return View();
     }
 
-     public IActionResult About()
+    public IActionResult About()
     {
         return View();
     }
 
     public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    public IActionResult SuperMario64()
+    {
+        return View();
+    }
+    public IActionResult Minecraft()
     {
         return View();
     }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sp6iMRTERrTIxl4alErQl3MhKHK6EMJQU6LgFkswgXk=",
+  "Hash": "YaG7oGlLGoI/vFyZjs6d0huxdUpWphhEkj4SLNNrVfI=",
   "Source": "SpeedRunningHub",
   "BasePath": "_content/SpeedRunningHub",
   "Mode": "Default",
@@ -93,12 +93,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\mine_1.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\mine_1.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/mine_1.jpg",
+      "RelativePath": "images/mine_1.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,15 +109,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\mine_1.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\mine_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\mine_2.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\mine_2.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/mine_2.jpg",
+      "RelativePath": "images/mine_2.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,15 +128,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\mine_2.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\mine_2.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\mine_3.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\mine_3.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/mine_3.jpg",
+      "RelativePath": "images/mine_3.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -147,15 +147,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\mine_3.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\mine_3.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\mine_4.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\mine_4.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/mine_4.jpg",
+      "RelativePath": "images/mine_4.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -166,15 +166,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\mine_4.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\mine_4.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\mine_5.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\mine_5.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/mine_5.jpg",
+      "RelativePath": "images/mine_5.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -185,15 +185,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\mine_5.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\mine_5.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\minecraft-banner.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\minecraft-banner.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/minecraft-banner.jpg",
+      "RelativePath": "images/minecraft-banner.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -204,15 +204,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\minecraft-banner.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\minecraft-banner.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\sm64_1.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\sm64_1.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/sm64_1.jpg",
+      "RelativePath": "images/sm64_1.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -223,15 +223,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\sm64_1.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sm64_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\sm64_2.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\sm64_2.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/sm64_2.jpg",
+      "RelativePath": "images/sm64_2.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -242,15 +242,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\sm64_2.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sm64_2.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\sm64_3.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\sm64_3.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/sm64_3.jpg",
+      "RelativePath": "images/sm64_3.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -261,15 +261,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\sm64_3.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sm64_3.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\sm64_4.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\sm64_4.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/sm64_4.jpg",
+      "RelativePath": "images/sm64_4.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -280,15 +280,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\sm64_4.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sm64_4.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\sm64_5.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\sm64_5.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/sm64_5.jpg",
+      "RelativePath": "images/sm64_5.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -299,15 +299,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\sm64_5.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sm64_5.jpg"
     },
     {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\icons\\sm64_banner.jpg",
+      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\images\\sm64_banner.jpg",
       "SourceId": "SpeedRunningHub",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
       "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "icons/sm64_banner.jpg",
+      "RelativePath": "images/sm64_banner.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -318,7 +318,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons\\sm64_banner.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\sm64_banner.jpg"
     },
     {
       "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\js\\scripts.js",
