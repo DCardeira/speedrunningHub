@@ -9,18 +9,30 @@
 
     <header>
         <h1>SpeedRunningHub</h1>
-        <!-- Menu, etc. -->
+        <nav>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Início</a></li>
+                <li class="dropdown">
+                    <a class="dropbtn">Jogos</a>
+                    <div class="dropdown-content">
+                        <a asp-controller="Games" asp-action="SuperMario64">Super Mario 64</a>
+                        <a asp-controller="Games" asp-action="Minecraft">Minecraft</a>
+                        <a asp-controller="Games" asp-action="Celeste">Celeste</a>
+                        <a asp-controller="Games" asp-action="HollowKnight">Hollow Knight</a>
+                        <a asp-controller="Games" asp-action="DarkSouls">Dark Souls</a>
+                    </div>
+                </li>
+                <li><a asp-controller="Home" asp-action="About">Sobre</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main role="main" class="container">
         @RenderBody()  <!-- Esta linha é obrigatória -->
     </main>
 
-    <footer>
-        <p>&copy; 2025 - SpeedRunningHub</p>
-    </footer>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/scripts.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

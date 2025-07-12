@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HvfOeiW7Pzr4NFpUBnWSGUCLWJMmPZ//7z/JbZ09Ka8=",
+  "Hash": "sp6iMRTERrTIxl4alErQl3MhKHK6EMJQU6LgFkswgXk=",
   "Source": "SpeedRunningHub",
   "BasePath": "_content/SpeedRunningHub",
   "Mode": "Default",
@@ -72,25 +72,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
-    },
-    {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\css\\styles.css",
-      "SourceId": "SpeedRunningHub",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
-      "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "css/styles.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\styles.css"
     },
     {
       "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\favicon.ico",
@@ -357,25 +338,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\scripts.js"
-    },
-    {
-      "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\js\\site.js",
-      "SourceId": "SpeedRunningHub",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\",
-      "BasePath": "_content/SpeedRunningHub",
-      "RelativePath": "js/site.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
       "Identity": "C:\\Users\\diogo\\Documents\\GitHub\\speedrunningHub\\app\\backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SpeedRunningHub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7739ca74332b445d4df9015f290113a74871f15e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b44d2e87b988339a6bf83b5b419b48444f782bc6")]
 [assembly: System.Reflection.AssemblyProductAttribute("SpeedRunningHub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SpeedRunningHub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
