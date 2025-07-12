@@ -188,3 +188,43 @@ table th {
     width: 100%;
     height: auto;
 }
+
+.form-section {
+    max-width: 400px;
+    margin: 40px auto;
+    background: #eaffea;
+    padding: 2em;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(29,185,84,0.15);
+    color: #145214;
+}
+.form-input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #1db954;
+    margin-bottom: 1em;
+}
+.form-btn {
+    background: #1db954;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 1em;
+    display: inline-block;
+}
+.form-btn.alt {
+    background: #228b22;
+}
+.form-msg-error {
+    color: red;
+    margin-top: 1em;
+}
+.form-msg-success {
+    color: green;
+    margin-top: 1em;
+}
