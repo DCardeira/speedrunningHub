@@ -199,9 +199,9 @@ table th {
     color: #145214;
 }
 .form-input {
-    width: 100%;
+    width: 90%;
     padding: 8px;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid #1db954;
     margin-bottom: 1em;
 }
@@ -213,6 +213,7 @@ table th {
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    align-self: center;
     text-decoration: none;
     margin-top: 1em;
     display: inline-block;
@@ -227,4 +228,9 @@ table th {
 .form-msg-success {
     color: green;
     margin-top: 1em;
+}
+.form-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

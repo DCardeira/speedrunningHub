@@ -81,6 +81,33 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet]
+    public IActionResult Submit()
+    {
+        ViewBag.Games = new List<string> { "Super Mario 64", "Minecraft", "Celeste", "Hollow Knight", "Dark Souls" };
+        ViewBag.Categories = new List<string> { "Any%", "100%", "Glitchless", "Low%", "Speedrun" };
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Submit(string GameName, string Category, string Time, string VideoUrl, string RunnerName, string Country, string Platform)
+    {
+        ViewBag.Games = new List<string> { "Super Mario 64", "Minecraft", "Celeste", "Hollow Knight", "Dark Souls" };
+        ViewBag.Categories = new List<string> { "Any%", "100%", "Glitchless", "Low%", "Speedrun" };
+        string error = null;
+        if (!System.Text.RegularExpressions.Regex.IsMatch(Time ?? "", "^\\d{1,2}:\\d{2}:\\d{2}$"))
+        {
+            error = "Tempo inválido! Use o formato hh:mm:ss.";
+        }
+        if (error != null)
+        {
+            ViewBag.Error = error;
+            return View();
+        }
+        ViewBag.Success = "Speedrun submetida com sucesso!";
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

@@ -235,3 +235,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 })
+
+document.addEventListener('DOMContentLoaded', function() {
+    var gameSelect = document.getElementById('GameName');
+    var categorySelect = document.getElementById('Category');
+    if (gameSelect && categorySelect) {
+        gameSelect.addEventListener('change', function() {
+            if (this.value) {
+                categorySelect.style.display = '';
+            } else {
+                categorySelect.style.display = 'none';
+                categorySelect.value = '';
+            }
+        });
+    }
+    var speedrunForm = document.getElementById('speedrunForm');
+    if (speedrunForm) {
+        speedrunForm.addEventListener('submit', function(e) {
+            var time = document.getElementById('Time').value;
+            var regex = /^\d{1,2}:\d{2}:\d{2}$/;
+            if (!regex.test(time)) {
+                var jsError = document.getElementById('jsError');
+                if (jsError) {
+                    jsError.textContent = 'Tempo inválido! Use o formato hh:mm:ss.';
+                    jsError.style.display = '';
+                }
+                e.preventDefault();
+            }
+        });
+    }
+});
