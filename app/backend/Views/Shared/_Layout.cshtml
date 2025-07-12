@@ -51,9 +51,9 @@
                                 <!-- Links para páginas de jogos específicos -->
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="SuperMario64">Super Mario 64</a></li>
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="Minecraft">Minecraft</a></li>
-                                <li><a class="dropdown-item" asp-controller="Games" asp-action="Celeste">Celeste</a></li>
-                                <li><a class="dropdown-item" asp-controller="Games" asp-action="HollowKnight">Hollow Knight</a></li>
-                                <li><a class="dropdown-item" asp-controller="Games" asp-action="DarkSouls">Dark Souls</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Celeste">Celeste</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="HollowKnight">Hollow Knight</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="DarkSouls">Dark Souls</a></li>
                             </ul>
                         </li>
                         
@@ -82,13 +82,6 @@
         <!-- Renderiza o conteúdo específico de cada view -->
         @RenderBody()  
     </main>
-
-    <!-- Rodapé, agora fixo na parte inferior da página e estilizado com Bootstrap -->
-    <footer class="footer mt-auto py-3 bg-light border-top">
-        <div class="container">
-            &copy; 2025 - SpeedRunningHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
-        </div>
-    </footer>
 
     <!-- Scripts JavaScript -->
     <!-- Bundle do Bootstrap que inclui Popper.js, necessário para componentes interativos como dropdowns -->

@@ -34,6 +34,7 @@ var blobConn = builder.Configuration["BlobStorage:ConnectionString"];
 // read flags + connection‐string
 var useInMemory = builder.Configuration.GetValue<bool>("UseInMemory");
 var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine($"Ligação MySQL: {defaultConn}");
 
 // --- 3. Configurar EF Core com MySQL ---
 builder.Services.AddDbContext<AppDbContext>(options => {

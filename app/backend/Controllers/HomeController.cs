@@ -38,6 +38,18 @@ public class HomeController : Controller {
         return View();
     }
 
+     public IActionResult Celeste() {
+        return View();
+    }
+
+     public IActionResult DarkSouls() {
+        return View();
+    }
+
+     public IActionResult HollowKnight() {
+        return View();
+    }
+
     // Exibe o formulário de login
     [HttpGet]
     public IActionResult Login() {
