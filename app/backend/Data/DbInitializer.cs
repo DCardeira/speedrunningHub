@@ -6,46 +6,45 @@ using Microsoft.AspNetCore.Identity;
 namespace SpeedRunningHub.Data {
     public class DbInitializer {
         private readonly AppDbContext _context;
-        public DbInitializer(AppDbContext context) {
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
+        public DbInitializer(AppDbContext context, UserManager<User> userManager, RoleManager<Role> roleManager) {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public async Task SeedAsync() {
+         public async Task SeedAsync() {
             if (_context.Database.IsRelational()) {
                 await _context.Database.MigrateAsync();
             }
 
-            // Popula os Roles
-            if (!await _context.Roles.AnyAsync()) {
-                _context.Roles.AddRange(
-                    new Role { Name = "Runner" },
-                    new Role { Name = "Moderator" }
-                );
-                await _context.SaveChangesAsync();
+            // Seed Roles
+            if (!await _roleManager.RoleExistsAsync("Runner")) {
+                await _roleManager.CreateAsync(new Role { Name = "Runner" });
+            }
+            if (!await _roleManager.RoleExistsAsync("Moderator")) {
+                await _roleManager.CreateAsync(new Role { Name = "Moderator" });
             }
 
-            // Popula o Default Moderator
-            if (!await _context.Users.AnyAsync(u => u.UserRoles.Any(ur => ur.Role.Name == "Moderator"))) {
+            // Seed Default Moderator
+            var moderatorUsers = await _userManager.GetUsersInRoleAsync("Moderator");
+            if (!moderatorUsers.Any()) {
                 var admin = new User {
-                    UserId = Guid.NewGuid().ToString(),
                     UserName = "admin",
-                    Email = "admin@fastruns.com"
+                    Email = "admin@fastruns.com",
+                    EmailConfirmed = true // Important for some Identity features
                 };
 
-                var hasher = new PasswordHasher<User>();
-                admin.PasswordHash = hasher.HashPassword(admin, "Admin#123");
-                _context.Users.Add(admin);
-                await _context.SaveChangesAsync();
-
-                var moderatorRole = await _context.Roles.SingleAsync(r => r.Name == "Moderator");
-                _context.UserRoles.Add(new UserRole {
-                    UserId = admin.UserId,
-                    RoleId = moderatorRole.RoleId
-                });
-                await _context.SaveChangesAsync();
+                // Create the user with a password
+                var result = await _userManager.CreateAsync(admin, "Admin#123");
+                if (result.Succeeded) {
+                    // Assign the 'Moderator' role
+                    await _userManager.AddToRoleAsync(admin, "Moderator");
+                }
             }
 
-            // Popular jogos
+            // Seed Games
             if (!await _context.Games.AnyAsync()) {
                 _context.Games.AddRange(
                     new Game { Title = "Super Mario 64", Description = "3D platformer classic." },

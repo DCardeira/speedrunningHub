@@ -58,6 +58,12 @@ namespace SpeedRunningHub.Controllers {
             if (file == null || file.Length == 0)
                 return BadRequest("Nenhum ficheiro recebido.");
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null) {
+                // This case should be rare for an authorized user, but it's good practice to handle it.
+                return Unauthorized("User ID could not be determined from token.");
+            }
+
             var container = _blobService.GetBlobContainerClient("game-images");
             await container.CreateIfNotExistsAsync(PublicAccessType.Blob);
 
@@ -67,11 +73,11 @@ namespace SpeedRunningHub.Controllers {
             await blobClient.UploadAsync(file.OpenReadStream(), new BlobHttpHeaders { ContentType = file.ContentType });
 
             var record = new GameImage {
-                GameId           = gameId,
-                FileName         = blobName,
-                FilePath         = blobClient.Uri.ToString(),
-                UploadedAt       = DateTime.UtcNow,
-                UploadedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                GameId = gameId,
+                FileName = blobName,
+                FilePath = blobClient.Uri.ToString(),
+                UploadedAt = DateTime.UtcNow,
+                UploadedByUserId = userId
             };
             _context.GameImages.Add(record);
             await _context.SaveChangesAsync();

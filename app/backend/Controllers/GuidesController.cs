@@ -5,6 +5,7 @@ using SpeedRunningHub.Data;
 using SpeedRunningHub.DTOs;
 using SpeedRunningHub.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.SignalR;
 
 namespace SpeedRunningHub.Controllers {
     [ApiController]
@@ -12,10 +13,12 @@ namespace SpeedRunningHub.Controllers {
     public class GuidesController : ControllerBase {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public GuidesController(AppDbContext context, IWebHostEnvironment env) {
+        public GuidesController(AppDbContext context, IWebHostEnvironment env, IHubContext<NotificationHub> hubContext) {
             _context = context;
             _env = env;
+            _hubContext = hubContext;
         }
 
         // Obtém todos os guias aprovados para um jogo específico.
@@ -33,7 +36,7 @@ namespace SpeedRunningHub.Controllers {
         public async Task<ActionResult<Guide>> GetGuide(int gameId, int guideId) {
             var guide = await _context.Guides
                 .Include(g => g.User)
-                .Include(g => g.Images)
+                .Include(g => g.GuideImages)
                 .FirstOrDefaultAsync(g => g.GameId == gameId && g.GuideId == guideId);
 
             if (guide == null) return NotFound();
@@ -84,6 +87,7 @@ namespace SpeedRunningHub.Controllers {
 
             guide.IsApproved = true;
             await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.SendAsync("NewGuideApproved", guideId, "Um novo guia foi aprovado!");
             return NoContent();
         }
 
@@ -126,13 +130,13 @@ namespace SpeedRunningHub.Controllers {
 
             var guideImage = new GuideImage {
                 GuideId = guideId,
-                ImagePath = $"/uploads/guides/{fileName}"
+                FilePath = $"/uploads/guides/{fileName}"
             };
 
             _context.GuideImages.Add(guideImage);
             await _context.SaveChangesAsync();
 
-            return Ok(new { filePath = guideImage.ImagePath });
+            return Ok(new { filePath = guideImage.FilePath });
         }
     }
 }

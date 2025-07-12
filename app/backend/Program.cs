@@ -9,7 +9,11 @@ using SpeedRunningHub.Data;
 using SpeedRunningHub.Models;
 using System.Text;
 
+Console.WriteLine("--> A iniciar a aplicação...");
+
 var builder = WebApplication.CreateBuilder(args);
+
+Console.WriteLine("--> Builder criado. A configurar serviços...");
 
 // --- 1. Configurar Azure Key Vault como fonte de configuração ---
 var kvUrl = builder.Configuration["KeyVault:Url"];
@@ -21,7 +25,10 @@ if (!builder.Environment.IsDevelopment() && !string.IsNullOrEmpty(kvUrl)) {
 }
 
 // --- 2. Ler secrets do Key Vault (ou fallback para appsettings) ---
-var jwtSecret = builder.Configuration["JwtSettings:SecretKey"];
+var jwtKey = builder.Configuration["JwtSettings:SecretKey"];
+if (string.IsNullOrEmpty(jwtKey)) {
+    throw new InvalidOperationException("Jwt:Key not configured in appsettings.json");
+}
 var blobConn = builder.Configuration["BlobStorage:ConnectionString"];
 
 // read flags + connection‐string
@@ -64,18 +71,21 @@ builder.Services.AddAuthentication(options => {
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
         ValidAudience = builder.Configuration["JwtSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
     };
 });
 
 // --- 7. Configurar CORS (Cross-Origin Resource Sharing) ---
-var frontendURL = builder.Configuration.GetValue<string>("FrontendURL");
+var frontendUrl = builder.Configuration["FrontendURL"];
+if (string.IsNullOrEmpty(frontendUrl)) {
+    throw new InvalidOperationException("FrontendURL is not configured.");
+}
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowMyFrontend",
         policy => {
             // Permite pedidos da URL do frontend definida em appsettings.json.
             // É crucial para o desenvolvimento com servidores separados.
-            policy.WithOrigins(frontendURL)
+            policy.WithOrigins(frontendUrl)
                   .AllowAnyHeader() // Permite todos os cabeçalhos (ex: Authorization para JWT).
                   .AllowAnyMethod(); // Permite todos os métodos HTTP (GET, POST, PUT, DELETE).
         });
@@ -84,14 +94,28 @@ builder.Services.AddCors(options => {
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSignalR();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Services.AddScoped<DbInitializer>();
+
+Console.WriteLine("--> Serviços configurados. A construir a aplicação...");
 
 var app = builder.Build();
 
+Console.WriteLine("--> Aplicação construída. A configurar a pipeline de pedidos...");
+
 // --- 8. Inicializar BD e inserir mock data ---
+Console.WriteLine("--> A obter o DbInitializer...");
 using (var scope = app.Services.CreateScope()) {
     var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
+    Console.WriteLine("--> A executar SeedAsync()...");
     await initializer.SeedAsync();
+    Console.WriteLine("--> SeedAsync() concluído.");
 }
 
 // --- 9. Configurar a pipeline de pedidos HTTP ---
@@ -106,9 +130,15 @@ app.UseHttpsRedirection();
 // Deve ser chamada antes de UseAuthentication/UseAuthorization.
 app.UseCors("AllowMyFrontend");
 
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
+Console.WriteLine("--> Pipeline configurada. A mapear controladores...");
+
 app.MapControllers();
+app.MapHub<NotificationHub>("/notificationHub"); // Se já tiver adicionado o SignalR
+
+Console.WriteLine("--> Controladores mapeados. A executar a aplicação.");
 
 app.Run();
