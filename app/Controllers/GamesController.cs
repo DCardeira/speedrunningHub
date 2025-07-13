@@ -7,22 +7,19 @@ using SpeedRunningHub.Data;
 using SpeedRunningHub.Models;
 using System.Security.Claims;
 
-namespace SpeedRunningHub.Controllers
-{
+namespace SpeedRunningHub.Controllers {
 
     /// API Controller para operações relacionadas com jogos, imagens e speedruns.
     [Route("api/[controller]")]
     [ApiController]
-    public class GamesController : ControllerBase
-    {
+    public class GamesController : ControllerBase {
         private readonly AppDbContext _context;
         private readonly BlobServiceClient _blobService;
 
 
         /// Construtor do GamesController. Recebe contexto da base de dados e serviço de blobs Azure.
 
-        public GamesController(AppDbContext context, BlobServiceClient blobService)
-        {
+        public GamesController(AppDbContext context, BlobServiceClient blobService) {
             _context = context;
             _blobService = blobService;
         }
@@ -32,8 +29,7 @@ namespace SpeedRunningHub.Controllers
 
         // GET: api/Games
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
-        {
+        public async Task<ActionResult<IEnumerable<Game>>> GetGames() {
             return await _context.Games
                 .Include(g => g.GameImages)
                 .ToListAsync();
@@ -44,8 +40,7 @@ namespace SpeedRunningHub.Controllers
 
         // GET: api/Games/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> GetGame(int id)
-        {
+        public async Task<ActionResult<Game>> GetGame(int id) {
             var game = await _context.Games
                 .Include(g => g.SpeedrunRecords.Where(r => r.IsApproved))
                 .Include(g => g.Guides.Where(gd => gd.IsApproved))
@@ -64,8 +59,7 @@ namespace SpeedRunningHub.Controllers
         // POST: api/Games
         [HttpPost]
         [Authorize(Roles = "Moderator")]
-        public async Task<ActionResult<Game>> PostGame(Game game)
-        {
+        public async Task<ActionResult<Game>> PostGame(Game game) {
             _context.Games.Add(game);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetGame), new { id = game.GameId }, game);
@@ -93,18 +87,16 @@ namespace SpeedRunningHub.Controllers
 
             await blobClient.UploadAsync(file.OpenReadStream(), new BlobHttpHeaders { ContentType = file.ContentType });
 
-            var record = new GameImage
-            {
+            var record = new GameImage {
                 GameId = gameId,
-                FileName = blobName,
-                FilePath = blobClient.Uri.ToString(),
+                ImagePath = blobClient.Uri.ToString(),
                 UploadedAt = DateTime.UtcNow,
                 UploadedByUserId = userId
             };
             _context.GameImages.Add(record);
             await _context.SaveChangesAsync();
 
-            return Ok(new { record.GameImageId, record.FilePath });
+            return Ok(new { record.ImageId, record.ImagePath });
         }
     }
 }

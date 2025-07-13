@@ -38,6 +38,21 @@ public class HomeController : Controller {
         return View();
     }
 
+    // Página dedicada ao jogo Celeste
+    public IActionResult Celeste() {
+        return View();
+    }
+
+    // Página dedicada ao jogo Hollow Knight
+    public IActionResult HollowKnight() {
+        return View();
+    }
+
+    // Página dedicada ao jogo Dark Souls
+    public IActionResult DarkSouls() {
+        return View();
+    }
+
     // Exibe o formulário de login
     [HttpGet]
     public IActionResult Login() {
@@ -59,18 +74,22 @@ public class HomeController : Controller {
 
     // Exibe o formulário de registo
     [HttpGet]
-    public IActionResult Registo() {
+    public IActionResult Register() {
         return View();
     }
 
     // Processa o registo submetido
     [HttpPost]
-    public IActionResult Registo(string newUsername, string newPassword) {
+    public IActionResult Register(string newUsername, string newPassword) {
         // Exemplo simples: não persiste, apenas valida
         if (string.IsNullOrWhiteSpace(newUsername) || string.IsNullOrWhiteSpace(newPassword)) {
             ViewBag.RegisterError = "Preencha todos os campos.";
             return View();
         }
+        if (string.IsNullOrWhiteSpace(newUsername) || string.IsNullOrWhiteSpace(newPassword)) {
+            ViewBag.RegisterError = "Preencha todos os campos.";
+            return View();
+            }
         if (newUsername == "admin") {
             ViewBag.RegisterError = "Este username já existe.";
             return View();
@@ -93,7 +112,7 @@ public class HomeController : Controller {
     public IActionResult Submit(string GameName, string Category, string Time, string VideoUrl, string RunnerName, string Country, string Platform) {
         ViewBag.Games = new List<string> { "Super Mario 64", "Minecraft", "Celeste", "Hollow Knight", "Dark Souls" };
         ViewBag.Categories = new List<string> { "Any%", "100%", "Glitchless", "Low%", "Speedrun" };
-        string error = null;
+        string? error = null;
         // Valida o formato do tempo submetido
         if (!System.Text.RegularExpressions.Regex.IsMatch(Time ?? "", "^\\d{1,2}:\\d{2}:\\d{2}$")) {
             error = "Tempo inválido! Use o formato hh:mm:ss.";

@@ -91,8 +91,7 @@ namespace SpeedRunningHub.Controllers {
             // Regista a imagem na base de dados
             var record = new GuideImage {
                 GuideId          = guideId,
-                FileName         = blobName,
-                FilePath         = blobClient.Uri.ToString(),
+                ImagePath        = blobClient.Uri.ToString(),
                 UploadedAt       = DateTime.UtcNow,
                 UploadedByUserId = userId
             };
@@ -100,7 +99,7 @@ namespace SpeedRunningHub.Controllers {
             await _context.SaveChangesAsync();
 
             // Retorna o id e caminho da imagem
-            return Ok(new { record.GuideImageId, record.FilePath });
+            return Ok(new { record.ImageId, record.ImagePath });
         }
     }
 }

@@ -47,8 +47,8 @@ namespace SpeedRunningHub.Data {
             // Popula jogos iniciais se não existirem
             if (!await _context.Games.AnyAsync()) {
                 _context.Games.AddRange(
-                    new Game { Title = "Super Mario 64", Description = "Clássico 3D platformer." },
-                    new Game { Title = "Minecraft", Description = "Jogo de SandBox de Blocos." }
+                    new Game { Title = "Super Mario 64", Description = "Clássico 3D platformer.", ReleaseDate = new DateTime(1996, 6, 23) },
+                    new Game { Title = "Minecraft", Description = "Jogo de SandBox de Blocos.", ReleaseDate = new DateTime(2011, 11, 18) }
                 );
                 await _context.SaveChangesAsync();
             }
