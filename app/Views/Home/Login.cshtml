@@ -1,0 +1,53 @@
+@{
+    // Define o título da página
+    ViewData["Title"] = "Login";
+}
+
+<!-- Utiliza o sistema de grid do Bootstrap para centralizar o formulário -->
+<!-- 'justify-content-center' centraliza a coluna horizontalmente -->
+<div class="row justify-content-center">
+    <!-- 'col-md-6' e 'col-lg-4' definem a largura da coluna em diferentes tamanhos de tela para responsividade -->
+    <div class="col-md-6 col-lg-4">
+        <!-- O componente 'card' cria um container visual para o formulário -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <!-- Título do card -->
+                <h3 class="card-title text-center mb-4">Entrar na sua Conta</h3>
+                
+                <!-- Formulário de login -->
+                <form asp-action="Login" method="post">
+                    <!-- Grupo de formulário para o nome de usuário -->
+                    <div class="mb-3">
+                        <!-- 'form-label' estiliza o rótulo do campo -->
+                        <label for="username" class="form-label">Nome de Usuário</label>
+                        <!-- 'form-control' aplica o estilo do Bootstrap ao campo de input -->
+                        <input type="text" id="username" name="username" class="form-control" required />
+                    </div>
+
+                    <!-- Grupo de formulário para a senha -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" id="password" name="password" class="form-control" required />
+                    </div>
+
+                    <!-- Grupo de formulário para o checkbox 'Lembrar-me' -->
+                    <div class="mb-3 form-check">
+                        <!-- 'form-check-input' e 'form-check-label' são classes específicas para checkboxes -->
+                        <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" value="true" />
+                        <label class="form-check-label" for="rememberMe">Lembrar-me</label>
+                    </div>
+
+                    <!-- Botão de submissão -->
+                    <!-- 'w-100' faz o botão ocupar 100% da largura do container pai -->
+                    <!-- 'btn' e 'btn-primary' aplicam o estilo de botão principal do Bootstrap -->
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                
+                <!-- Links adicionais abaixo do formulário -->
+                <div class="text-center mt-3">
+                    <a href="#">Esqueceu a senha?</a> | <a asp-action="Registo">Criar uma conta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

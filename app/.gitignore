@@ -1,0 +1,47 @@
+# Build output
+bin/
+obj/
+Debug/
+Release/
+
+# Publish artifacts
+publish/
+
+# Test results & coverage
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+*.lcov
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.pidb
+
+# IDE folders
+.vs/
+.vscode/
+.idea/
+
+# NuGet & .NET tool caches
+packages/
+*.nupkg
+.nuget/
+
+# Logs, DB files, snapshots
+*.log
+*.db
+# If you DON’T want to check in your EF migrations, uncomment:
+# Migrations/
+
+# Local / secret settings
+secrets.json
+local.settings.json
+appsettings.*.json
+Properties/launchSettings.json
+
+# OS generated
+.DS_Store
+Thumbs.db

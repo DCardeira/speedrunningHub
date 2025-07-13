@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "Submeter Speedrun";
+}
+
+<!-- Utiliza o sistema de grid do Bootstrap para centralizar o formulário -->
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Submeter Novo Recorde</h3>
+                
+                <!-- Formulário de submissão -->
+                <form asp-action="Submit" method="post" enctype="multipart/form-data">
+                    <!-- Campo para selecionar o jogo -->
+                    <div class="mb-3">
+                        <label for="game" class="form-label">Jogo</label>
+                        <select id="game" name="game" class="form-select" required>
+                            <option selected disabled value="">Escolha um jogo...</option>
+                            <option>Super Mario 64</option>
+                            <option>Minecraft</option>
+                            <option>Celeste</option>
+                            <option>Hollow Knight</option>
+                            <option>Dark Souls</option>
+                        </select>
+                    </div>
+
+                    <!-- Campo para o tempo da speedrun -->
+                    <div class="mb-3">
+                        <label for="time" class="form-label">Tempo (formato HH:MM:SS.ms)</label>
+                        <input type="text" id="time" name="time" class="form-control" placeholder="Ex: 01:36:21.123" required />
+                    </div>
+
+                    <!-- Campo para o link do vídeo -->
+                    <div class="mb-3">
+                        <label for="videoUrl" class="form-label">Link do Vídeo (YouTube, Twitch)</label>
+                        <input type="url" id="videoUrl" name="videoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." required />
+                    </div>
+
+                    <!-- Campo para a plataforma -->
+                    <div class="mb-3">
+                        <label for="platform" class="form-label">Plataforma</label>
+                        <input type="text" id="platform" name="platform" class="form-control" placeholder="Ex: PC, N64, PlayStation 5" required />
+                    </div>
+
+                    <!-- Campo para comentários adicionais -->
+                    <div class="mb-3">
+                        <label for="comments" class="form-label">Comentários (opcional)</label>
+                        <textarea id="comments" name="comments" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <!-- Botão de submissão -->
+                    <button type="submit" class="btn btn-primary w-100">Enviar Submissão</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+@{
+    // Define o título da página
+    ViewData["Title"] = "Criar Conta";
+}
+
+<!-- Utiliza o sistema de grid do Bootstrap para centralizar o formulário -->
+<div class="row justify-content-center">
+    <!-- Define a largura da coluna para ser responsiva -->
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Criar Nova Conta</h3>
+                
+                <!-- Formulário de registro -->
+                <form asp-action="Register" method="post">
+                    <!-- Grupo de formulário para o nome de usuário -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nome de Usuário</label>
+                        <input type="text" id="username" name="username" class="form-control" required />
+                    </div>
+
+                    <!-- Grupo de formulário para o email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Endereço de Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required />
+                    </div>
+
+                    <!-- Grupo de formulário para a senha -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" id="password" name="password" class="form-control" required />
+                    </div>
+
+                    <!-- Grupo de formulário para a confirmação da senha -->
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirmar Senha</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
+                    </div>
+
+                    <!-- Botão de submissão -->
+                    <button type="submit" class="btn btn-primary w-100">Registrar</button>
+                </form>
+                
+                <!-- Link para voltar à página de login -->
+                <div class="text-center mt-3">
+                    <a asp-action="Login">Já tem uma conta? Faça login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+@{
+    // Define o título da página
+    ViewData["Title"] = "Minecraft";
+}
+
+<!-- Banner do Jogo -->
+<img src="~/images/minecraft_banner.jpg" alt="Minecraft Banner" class="img-fluid rounded shadow-sm mb-4">
+
+<!-- Seção de Informações do Jogo e Técnicas -->
+<div class="row mb-4">
+    <!-- Coluna para a descrição do jogo -->
+    <div class="col-lg-7">
+        <h2 class="display-6 border-bottom pb-2 mb-3">Sobre o Jogo</h2>
+        <p>Minecraft é um jogo sandbox desenvolvido pela Mojang Studios em 2011. No Minecraft, os jogadores exploram um mundo tridimensional gerado proceduralmente com terrenos virtualmente infinitos, composto por blocos pixelados. Os jogadores podem descobrir e extrair recursos naturais, criar ferramentas e objetos, e construir estruturas, obras de terraplanagem e máquinas.</p>
+    </div>
+    <!-- Coluna para as técnicas de speedrun, usando o componente Accordion -->
+    <div class="col-lg-5">
+        <h3 class="h4">Técnicas de Speedrun</h3>
+        <div class="accordion" id="techniquesAccordion">
+            <!-- Item 1: Movimento -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMove">
+                        Movimento
+                    </button>
+                </h2>
+                <div id="collapseMove" class="accordion-collapse collapse" data-bs-parent="#techniquesAccordion">
+                    <div class="accordion-body">
+                        Saltar enquanto se corre (conhecido como "bunny hopping") é a forma mais rápida de movimento. Se estiver num corredor com 2 blocos de altura, salte o mais rápido possível para obter um impulso extra.
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2: Planeamento de Rota -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRoute">
+                        Planeamento de Rota
+                    </button>
+                </h2>
+                <div id="collapseRoute" class="accordion-collapse collapse" data-bs-parent="#techniquesAccordion">
+                    <div class="accordion-body">
+                        Considere os objetivos, regras do mapa, comida e itens que ajudem a limpar áreas mais rápido. Avalie se vale a pena voltar a áreas iniciais depois de obter equipamento melhor.
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3: Combate -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCombat">
+                        Combate
+                    </button>
+                </h2>
+                <div id="collapseCombat" class="accordion-collapse collapse" data-bs-parent="#techniquesAccordion">
+                    <div class="accordion-body">
+                        Na maioria dos casos, é melhor evitar os inimigos. Use um escudo para bloquear ataques e cause golpes críticos (150% de dano) ao atacar enquanto cai.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabela de Recordes -->
+<h2 class="border-bottom pb-2 mb-3">Tabela de Recordes - Any% Glitchless</h2>
+<div class="table-responsive shadow-sm rounded">
+    <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Posição</th>
+                <th>Tempo</th>
+                <th>Speedrunner</th>
+                <th>Versão</th>
+                <th class="text-center">Vídeo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Exemplo de linha da tabela -->
+            <tr>
+                <td>1</td>
+                <td>7m:01s:494ms</td>
+                <td><span class="me-2">&#127470;&#127481;</span> drip120</td>
+                <td>1.16.1</td>
+                <td class="text-center">
+                    <a href="https://www.youtube.com/watch?v=E3t24Urba6Y" class="btn btn-danger btn-sm" target="_blank">YouTube</a>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>7m:22s:283ms</td>
+                <td><span class="me-2">&#127464;&#127462;</span> NoHacsJustRoblox</td>
+                <td>1.16.1</td>
+                <td class="text-center">
+                    <a href="https://www.youtube.com/watch?v=cF1qFdtjdMQ" class="btn btn-danger btn-sm" target="_blank">YouTube</a>
+                </td>
+            </tr>
+            <!-- Adicione as outras linhas da tabela seguindo este formato -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Galeria de Imagens -->
+<h2 class="border-bottom pb-2 my-4">Galeria de Imagens</h2>
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <img src="~/images/minecraft_gallery_1.jpg" class="img-fluid rounded shadow-sm" alt="Galeria Minecraft - Imagem 1">
+    </div>
+    <div class="col-md-4 mb-4">
+        <img src="~/images/minecraft_gallery_2.jpg" class="img-fluid rounded shadow-sm" alt="Galeria Minecraft - Imagem 2">
+    </div>
+    <div class="col-md-4 mb-4">
+        <img src="~/images/minecraft_gallery_3.jpg" class="img-fluid rounded shadow-sm" alt="Galeria Minecraft - Imagem 3">
+    </div>
+</div>
